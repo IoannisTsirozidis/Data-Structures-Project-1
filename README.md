@@ -6,5 +6,3 @@ This is the ultimate (or it wil be someday) project, right after Local Hack Day 
 The best C++ Code you will ever see.
 
 Yeah sure thing!
-
-using namespace std;

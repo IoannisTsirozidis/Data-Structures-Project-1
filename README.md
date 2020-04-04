@@ -6,3 +6,5 @@ This is the ultimate (or it wil be someday) project, right after Local Hack Day 
 Γεια σου Κωνσταντίνε!
 
 Αν μπορείς να το διαβάσεις κάνε commit απάντηση
+
+Το GitHub δεν ειναι chat!

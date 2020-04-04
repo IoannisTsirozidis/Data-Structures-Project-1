@@ -1,2 +1,2 @@
 # Data-Structures-Project
-Data Structures Project 2020 Information School Auth
+Data Structures Project 2020 CSD.AUTH

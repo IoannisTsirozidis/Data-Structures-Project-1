@@ -16,15 +16,14 @@ int main()
     size_t d = 0;
 
 
-    ifstream file("input_file.txt");
+    ifstream file("input_file2.txt");
     string linestr;
     while (getline(file, linestr))
     {
-        //remove_gar(linestr);
         ArrayWithWords.push_back(linestr);
         d++;
-        //cout<<linestr<<endl;
     }
+
 
 
     for (int i = 0; i < ArrayWithWords.size(); i++)

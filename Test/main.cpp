@@ -2,21 +2,18 @@
 #include <fstream>
 #include <string>
 #include <vector>
-
+#include "Tree.h"
 using namespace std;
-void remove_gar(string &s)
-{
-    int x;
-}
 
 
 int main()
 {
+    /*
     vector<string> ArrayWithWords;
     size_t d = 0;
 
 
-    ifstream file("input_file2.txt");
+    ifstream file("input_file.txt");
     string linestr;
     while (getline(file, linestr))
     {
@@ -35,4 +32,17 @@ int main()
     cout<<"\n\n\n-------------------------------"<<endl;
     cout<<"The number of lines is "<<ArrayWithWords.size()<<endl;
     cout<<"Total number of characters = "<<d<<endl;
+    */
+
+
+    Tree A;
+    A.add(10);
+    A.add(20);
+    A.add(20);
+    A.InOrder();
+
+
+
+
+
 }

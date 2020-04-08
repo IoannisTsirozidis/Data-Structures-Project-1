@@ -1,7 +1,15 @@
 # depslib dependency file v1.0
-1586163831 source:c:\users\azza8\documents\github\data-structures-project\test\main.cpp
+1586361035 source:c:\users\azza8\documents\github\data-structures-project\test\main.cpp
 	<iostream>
 	<fstream>
 	<string>
 	<vector>
+	"Tree.h"
+
+1586361020 source:c:\users\azza8\documents\github\data-structures-project\test\tree.cpp
+	"Tree.h"
+	<iostream>
+
+1586360981 c:\users\azza8\documents\github\data-structures-project\test\tree.h
+	<string>
 

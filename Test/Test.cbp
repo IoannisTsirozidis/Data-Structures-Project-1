@@ -34,6 +34,8 @@
 		</Compiler>
 		<Unit filename="Tree.cpp" />
 		<Unit filename="Tree.h" />
+		<Unit filename="TreeAVL.cpp" />
+		<Unit filename="TreeAVL.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />

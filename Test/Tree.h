@@ -5,7 +5,7 @@
 
 class Tree
 {
-    struct node {
+     struct node {
         // members will be public without `private:` keyword
         int value;
 

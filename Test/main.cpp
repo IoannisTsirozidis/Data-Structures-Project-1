@@ -41,6 +41,8 @@ int main()
     A.add(20);
     A.InOrder();
 
+    cout<<A.node.pleft;
+
 
 
 

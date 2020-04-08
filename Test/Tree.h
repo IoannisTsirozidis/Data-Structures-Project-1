@@ -22,7 +22,7 @@ class Tree
 
     protected:
         void add(int, node*);
-        void InOrder(node*);
+        void inorder(node*);
 
     private:
         node *root;

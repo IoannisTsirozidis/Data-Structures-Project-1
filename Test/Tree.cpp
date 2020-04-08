@@ -32,16 +32,16 @@ void Tree::add(int a)
 
 void Tree::InOrder()
 {
-    InOrder(root);
+    inorder(root);
 }
 
-void Tree::InOrder(node *p)
+void Tree::inorder(node *p)
 {
     if (p == NULL)
         return;
-    InOrder(p->pleft);
+    inorder(p->pleft);
     cout<<p->value<<", ";
-    InOrder(p->pright);
+    inorder(p->pright);
 }
 void Tree::add(int a, node *p_node)
 {

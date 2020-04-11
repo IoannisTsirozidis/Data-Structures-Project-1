@@ -4,14 +4,19 @@
 #include <algorithm>
 #include <ctype.h>
 #include <cstring>
-#include "Tree.h"
+#include "BinarySearchTree.h"
 
 using namespace std;
+
+
 
 void to_lower_str(string &data)
 {
     transform(data.begin(), data.end(), data.begin(),[](unsigned char c){return tolower(c);} );
 }
+
+
+
 int main()
 {
     /*

@@ -29,3 +29,14 @@
 	<cstring>
 	"Tree.h"
 
+1586625889 source:c:\users\user\documents\github\data-structures-project\project\main.cpp
+	<iostream>
+	<fstream>
+	<string>
+	<algorithm>
+	<ctype.h>
+	<cstring>
+	"BinarySearchTree.h"
+
+1586627349 c:\users\user\documents\github\data-structures-project\project\binarysearchtree.h
+

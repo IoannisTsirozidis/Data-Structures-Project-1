@@ -14,6 +14,7 @@ void to_lower_str(string &data)
 }
 int main()
 {
+    /*
     int k, count = 0;
     ifstream file("input_file2.txt");
     string linestr;
@@ -31,14 +32,13 @@ int main()
                     if (!isalpha(linestr[i]) || i ==k  )
                     {
                         to_lower_str(temp_word);
-                        count++;
                         //cout<<temp_word<<endl; /// This is the insert part function
                         temp_word.erase();
                     }
                 }
         }
     }
-    cout<<count;
+    */
 
 
 

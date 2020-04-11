@@ -1,49 +1,60 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <vector>
+#include <algorithm>
+#include <ctype.h>
+#include <cstring>
 #include "Tree.h"
+
 using namespace std;
 
-
+void to_lower_str(string &data)
+{
+    transform(data.begin(), data.end(), data.begin(),[](unsigned char c){return tolower(c);} );
+}
 int main()
 {
-    /*
-    vector<string> ArrayWithWords;
-    size_t d = 0;
 
 
-    ifstream file("input_file.txt");
+
+
+    int n,k;
+    ifstream file("input_file2.txt");
     string linestr;
+    string temp_word;
     while (getline(file, linestr))
     {
-        ArrayWithWords.push_back(linestr);
-        d++;
+        n = 0;
+        k = linestr.length();
+        while (n<k)
+        {
+            while ()
+            temp_wordappend
+
+            n++;
+        }
+
+
+
+
+        // Process linestr (e.g., eliminate punctuation marks, isolate words)
     }
 
 
 
-    for (int i = 0; i < ArrayWithWords.size(); i++)
-    {
-        cout<<ArrayWithWords[i]<<"                                      With strlen =  "<<ArrayWithWords[i].size()<<endl;
-        d+=ArrayWithWords[i].size();
 
-    }
-    cout<<"\n\n\n-------------------------------"<<endl;
-    cout<<"The number of lines is "<<ArrayWithWords.size()<<endl;
-    cout<<"Total number of characters = "<<d<<endl;
+    /*
+
+    string data = "Abc";
+
+    to_lower_str(data);
+
+    cout<<data;
+
+    if (data == data)
+        cout<<"yes"<<endl;
+
     */
-
-
-    Tree A;
-    A.add(10);
-    A.add(20);
-    A.add(20);
-    A.InOrder();
-
-    /**< Something is wrong but I don't know what... Good luck debugging :) */
-
-
 
 
 

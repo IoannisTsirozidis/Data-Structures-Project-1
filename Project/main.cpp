@@ -14,47 +14,33 @@ void to_lower_str(string &data)
 }
 int main()
 {
-
-
-
-
-    int n,k;
+    int k, count = 0;
     ifstream file("input_file2.txt");
     string linestr;
     string temp_word;
     while (getline(file, linestr))
     {
-        n = 0;
         k = linestr.length();
-        while (n<k)
+        for (int i=0; i<=k; i++)
         {
-            while ()
-            temp_wordappend
-
-            n++;
+            if (isalpha(linestr[i]))
+                temp_word+=linestr[i];
+            else
+                if (temp_word.length() != 0)
+                {
+                    if (!isalpha(linestr[i]) || i ==k  )
+                    {
+                        to_lower_str(temp_word);
+                        count++;
+                        //cout<<temp_word<<endl; /// This is the insert part function
+                        temp_word.erase();
+                    }
+                }
         }
-
-
-
-
-        // Process linestr (e.g., eliminate punctuation marks, isolate words)
     }
+    cout<<count;
 
 
-
-
-    /*
-
-    string data = "Abc";
-
-    to_lower_str(data);
-
-    cout<<data;
-
-    if (data == data)
-        cout<<"yes"<<endl;
-
-    */
 
 
 

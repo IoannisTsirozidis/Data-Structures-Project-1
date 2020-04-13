@@ -25,21 +25,36 @@ class BinarySearchTree
         //FUNCTIONS
 
         void insert(string);
+
+        void search(string);
+
         void inorder();
         void preorder();
         void postorder();
+
+        void print();
 
 
 
     protected:
 
     private:
-        node * insert(node *,string);
         node* root = nullptr;
+
+
+        node * insert(node *, string);
+
+        node * search(node *, string);
+
+
+
 
         void preorder(node *p);
         void inorder(node *p);
         void postorder(node *p);
+
+
+
 
 };
 

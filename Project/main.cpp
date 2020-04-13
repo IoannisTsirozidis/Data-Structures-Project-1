@@ -6,6 +6,9 @@
 #include <cstring>
 #include "BinarySearchTree.h"
 
+#include <chrono>
+using namespace std::chrono;
+
 using namespace std;
 
 
@@ -25,7 +28,7 @@ int main()
 
 
 
-    int k, count = 0;
+    int k; //count = 0;
     ifstream file("input_file2.txt");
     string linestr;
     string temp_word;
@@ -49,7 +52,21 @@ int main()
                 }
         }
     }
-    A.postorder();
+
+
+    A.preorder();
+
+    A.print();
+
+
+    auto start = high_resolution_clock::now();
+    A.search("revolution");
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<microseconds>(stop-start);
+    cout <<"time elapsed"<< duration.count() << endl;
+
+
+
 
 
 

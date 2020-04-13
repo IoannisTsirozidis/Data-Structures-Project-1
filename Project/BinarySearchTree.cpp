@@ -31,7 +31,7 @@ node* BinarySearchTree::insert(node *p_node,string key_value)
         p_node->value = key_value;
         return p_node;
     }
-    if (p_node->value > key_value)
+    if (key_value > p_node->value)
         p_node->pright = insert(p_node->pright, key_value);
     else
         p_node->pleft = insert(p_node->pleft, key_value);
@@ -75,4 +75,43 @@ void BinarySearchTree::postorder(node *p)
     cout<<p->value<<", ";
 
 }
+
+
+
+
+void BinarySearchTree::search(string key_value)
+{
+    node* temp;
+
+    temp= search(root, key_value);
+
+    if(temp==nullptr)
+        cout<<"not found"<<endl;
+    else
+        cout<<"<"<<temp->value<<">"<<" found ";
+
+}
+
+
+node* BinarySearchTree::search(node* p_node, string key_value)
+{
+        if(p_node== nullptr)
+            return nullptr;
+
+        if(p_node->value == key_value)
+            return p_node;
+
+        else if(key_value > p_node->value)
+            return search(p_node->pright, key_value);
+
+        else//if(key_value < p_node->value)
+            return search(p_node->pleft, key_value);
+}
+
+
+void BinarySearchTree::print()
+{
+    cout<<endl<< root->pleft->pright->value <<endl;
+}
+
 

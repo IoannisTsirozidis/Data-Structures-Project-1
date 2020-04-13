@@ -19,7 +19,12 @@ void to_lower_str(string &data)
 
 int main()
 {
-    /*
+
+    BinarySearchTree A;
+
+
+
+
     int k, count = 0;
     ifstream file("input_file2.txt");
     string linestr;
@@ -38,13 +43,13 @@ int main()
                     {
                         to_lower_str(temp_word);
                         //cout<<temp_word<<endl; /// This is the insert part function
+                        A.insert(temp_word);
                         temp_word.erase();
                     }
                 }
         }
     }
-    */
-
+    A.postorder();
 
 
 

@@ -1,15 +1,17 @@
 #ifndef BINARYSEARCHTREE_H
 #define BINARYSEARCHTREE_H
+#include <iostream>
+#include <string>
 
+using namespace std;
 
 struct node
 {
-    int counter;
-    int value;
+    string value;
     node* pleft;
     node* pright;
+    int counter =0;
 };
-
 
 class BinarySearchTree
 {
@@ -22,18 +24,23 @@ class BinarySearchTree
 
         //FUNCTIONS
 
-        void insert(int);
-
+        void insert(string);
+        void inorder();
+        void preorder();
+        void postorder();
 
 
 
     protected:
 
-
     private:
-        node* root;
+        node * insert(node *,string);
+        node* root = nullptr;
 
-        void insert(node*, int);
+        void preorder(node *p);
+        void inorder(node *p);
+        void postorder(node *p);
+
 };
 
 #endif // BINARYSEARCHTREE_H

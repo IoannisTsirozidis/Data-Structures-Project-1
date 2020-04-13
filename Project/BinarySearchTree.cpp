@@ -9,65 +9,70 @@ struct node
 };
 */
 
-
 BinarySearchTree::BinarySearchTree()        //Default Constructor
 {
-    root= nullptr;
+
 }
-
-
 BinarySearchTree::~BinarySearchTree()       //Default Destructor
 {
 
 }
-
-
-void BinarySearchTree::insert(node* pnode, int a)
+void BinarySearchTree::insert(string key_value)
 {
-
-
-        if(pnode->value > a)
-        {
-            pnode->pright= new node;
-            insert(pnode->pright, a);
-        }
-
-        else if(pnode->value < a)
-        {
-            pnode->pleft= new node;
-            insert(pnode->pleft, a);
-        }
-
-        else
-        {
-            pnode->counter+=1;
-        }
-
-
-
-    }
-
-
-
-
-
-void BinarySearchTree::insert(int a)
+    root = insert(root,key_value);
+}
+node* BinarySearchTree::insert(node *p_node,string key_value)
 {
-    if(root == nullptr)
+    if (p_node == nullptr)
     {
-        root = new node;
-
-        root->counter=1;
-        root->pleft= nullptr;
-        root->pright= nullptr;
-        root->value= a;
-
+        p_node = new node;
+        p_node->pleft = nullptr;
+        p_node->pright =nullptr;
+        p_node->value = key_value;
+        return p_node;
     }
+    if (p_node->value > key_value)
+        p_node->pright = insert(p_node->pright, key_value);
+    else
+        p_node->pleft = insert(p_node->pleft, key_value);
 
+    return p_node;
 }
 
+void BinarySearchTree::preorder()
+{
+    preorder(root);
+}
+void BinarySearchTree::preorder(node *p)
+{
+    if (p==NULL) return;
+    cout<<p->value<<", ";
+    preorder(p->pleft);
+    preorder(p->pright);
+}
 
+void BinarySearchTree::inorder()
+{
+    inorder(root);
+}
+void BinarySearchTree::inorder(node *p)
+{
+    if (p==NULL) return;
+    inorder(p->pleft);
+    cout<<p->value<<", ";
+    inorder(p->pright);
+}
 
+void BinarySearchTree::postorder()
+{
+    postorder(root);
+}
+void BinarySearchTree::postorder(node *p)
+{
+    if (p==NULL) return;
+    postorder(p->pleft);
+    postorder(p->pright);
+    cout<<p->value<<", ";
 
-
+}
 

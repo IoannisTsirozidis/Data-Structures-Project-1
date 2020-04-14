@@ -17,10 +17,12 @@ BinarySearchTree::~BinarySearchTree()       //Default Destructor
 {
 
 }
+
 void BinarySearchTree::insert(string key_value)
 {
     root = insert(root,key_value);
 }
+
 node* BinarySearchTree::insert(node *p_node,string key_value)
 {
     if (p_node == nullptr)
@@ -29,10 +31,13 @@ node* BinarySearchTree::insert(node *p_node,string key_value)
         p_node->pleft = nullptr;
         p_node->pright =nullptr;
         p_node->value = key_value;
+        p_node->counter = 1;
         return p_node;
     }
     if (key_value > p_node->value)
         p_node->pright = insert(p_node->pright, key_value);
+    else if (key_value == p_node->value)
+        p_node->counter += 1;
     else
         p_node->pleft = insert(p_node->pleft, key_value);
 
@@ -43,12 +48,11 @@ void BinarySearchTree::preorder()
 {
     preorder(root);
 }
+
+
 void BinarySearchTree::preorder(node *p)
 {
-    if (p==NULL) return;
-    cout<<p->value<<", ";
-    preorder(p->pleft);
-    preorder(p->pright);
+    if (p==NULL) return;cout<<p->value<<", ";preorder(p->pleft);preorder(p->pright);
 }
 
 void BinarySearchTree::inorder()
@@ -57,10 +61,7 @@ void BinarySearchTree::inorder()
 }
 void BinarySearchTree::inorder(node *p)
 {
-    if (p==NULL) return;
-    inorder(p->pleft);
-    cout<<p->value<<", ";
-    inorder(p->pright);
+    if (p==NULL) return;inorder(p->pleft);cout<<p->value<<", ";inorder(p->pright);
 }
 
 void BinarySearchTree::postorder()
@@ -69,30 +70,25 @@ void BinarySearchTree::postorder()
 }
 void BinarySearchTree::postorder(node *p)
 {
-    if (p==NULL) return;
-    postorder(p->pleft);
-    postorder(p->pright);
-    cout<<p->value<<", ";
-
+    if (p==NULL) return;postorder(p->pleft);postorder(p->pright);cout<<p->value<<", ";
 }
 
-
-
-
-void BinarySearchTree::search(string key_value)
+int BinarySearchTree::search(string key_value)
 {
     node* temp;
 
-    temp= search(root, key_value);
-
+    temp = search(root, key_value);
+    if(temp==nullptr)
+        return 0;
+    else
+        return temp->counter;
+    /*
     if(temp==nullptr)
         cout<<"not found"<<endl;
     else
         cout<<"<"<<temp->value<<">"<<" found ";
-
+    */
 }
-
-
 node* BinarySearchTree::search(node* p_node, string key_value)
 {
         if(p_node== nullptr)
@@ -107,11 +103,28 @@ node* BinarySearchTree::search(node* p_node, string key_value)
         else//if(key_value < p_node->value)
             return search(p_node->pleft, key_value);
 }
-
-
-void BinarySearchTree::print()
+void BinarySearchTree::debugInfo(node *p)
 {
-    cout<<endl<< root->pleft->pright->value <<endl;
+    if (p==NULL) return;
+    debugInfo(p->pleft);
+    debugInfo(p->pright);
+    cout<<endl<<endl<<" ------------------------------- "<<endl<<endl;
+    cout<<" Value         : "<<p->value<<endl;
+    cout<<" Counter       : "<<p->counter<<endl<<endl;
+
+    if (p->pleft)
+    cout<<endl<<" Left Value  : "<<p->pleft->value<<endl;
+
+    if (p->pright)
+        cout<<endl<<" Right Value : "<<p->pright->value<<endl;
+    cout<<endl<<" ------------------------------- "<<endl;
+}
+
+void BinarySearchTree::printDebug()
+{
+    cout<<endl<<endl<<endl<<" ---------- DEBUG INFO ---------"<<endl;
+    debugInfo(root);
+
 }
 
 

@@ -26,13 +26,16 @@ class BinarySearchTree
 
         void insert(string);
 
-        void search(string);
+        int search(string);
 
         void inorder();
         void preorder();
         void postorder();
 
-        void print();
+        void printDebug();
+
+
+
 
 
 
@@ -48,7 +51,7 @@ class BinarySearchTree
 
 
 
-
+        void debugInfo(node *p);
         void preorder(node *p);
         void inorder(node *p);
         void postorder(node *p);

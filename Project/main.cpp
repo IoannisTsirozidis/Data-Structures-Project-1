@@ -54,18 +54,23 @@ int main()
     }
 
 
-    A.preorder();
+    //A.preorder();
 
-    A.print();
+    //A.printDebug();
 
+    double mo = 0;
+    for (int i = 0; i< 1; i++)
+    {
+        auto start = high_resolution_clock::now();
+        cout<<" Appeared "<<A.search("TSHE")<<" times"<<endl;
+        auto stop = high_resolution_clock::now();
+        auto duration = duration_cast<microseconds>(stop-start);
+        //cout <<" Time elapsed : "<< duration.count() << endl;
+        mo += duration.count();
+    }
 
-    auto start = high_resolution_clock::now();
-    A.search("revolution");
-    auto stop = high_resolution_clock::now();
-    auto duration = duration_cast<microseconds>(stop-start);
-    cout <<"time elapsed"<< duration.count() << endl;
-
-
+    B = C;
+    cout << mo / 1<<" microseconds "<<endl;
 
 
 

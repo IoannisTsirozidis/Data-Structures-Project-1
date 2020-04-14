@@ -28,6 +28,8 @@ class BinarySearchTree
 
         int search(string);
 
+        bool delete_node(string);
+
         void inorder();
         void preorder();
         void postorder();
@@ -48,6 +50,11 @@ class BinarySearchTree
         node * insert(node *, string);
 
         node * search(node *, string);
+
+        node * delete_node(node *, string);
+
+        node* remove_one_child(node*);
+
 
 
 

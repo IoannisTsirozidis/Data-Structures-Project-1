@@ -54,9 +54,9 @@ int main()
     }
 
 
-    //A.preorder();
+    A.preorder();
 
-    //A.printDebug();
+    A.printDebug();
 
     double mo = 0;
     for (int i = 0; i< 1; i++)
@@ -69,7 +69,6 @@ int main()
         mo += duration.count();
     }
 
-    B = C;
     cout << mo / 1<<" microseconds "<<endl;
 
 

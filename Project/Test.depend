@@ -20,7 +20,7 @@
 1586616232 c:\users\azza8\documents\github\data-structures-project\project\tree.h
 	<string>
 
-1587054259 source:c:\users\azza8\documents\github\data-structures-project\project\main.cpp
+1587065032 source:c:\users\azza8\documents\github\data-structures-project\project\main.cpp
 	<iostream>
 	<fstream>
 	<string>
@@ -29,6 +29,7 @@
 	<cstring>
 	"BinarySearchTree.h"
 	<chrono>
+	<cstdlib>
 
 1586889872 source:c:\users\user\documents\github\data-structures-project\project\main.cpp
 	<iostream>
@@ -44,11 +45,14 @@
 	<iostream>
 	<string>
 
-1587050685 c:\users\azza8\documents\github\data-structures-project\project\binarysearchtree.h
+1587069514 c:\users\azza8\documents\github\data-structures-project\project\binarysearchtree.h
 	<iostream>
 	<string>
+	<cstdlib>
+	<unistd.h>
+	<windows.h>
 
-1587053954 source:c:\users\azza8\documents\github\data-structures-project\project\binarysearchtree.cpp
+1587069654 source:c:\users\azza8\documents\github\data-structures-project\project\binarysearchtree.cpp
 	"BinarySearchTree.h"
 
 1586889497 source:c:\users\user\documents\github\data-structures-project\project\binarysearchtree.cpp

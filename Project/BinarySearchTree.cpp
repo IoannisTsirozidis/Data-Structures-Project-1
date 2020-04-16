@@ -312,4 +312,88 @@ node* BinarySearchTree::search_parent(int key)
 	return parent;
 }
 
+void BinarySearchTree::MENU()
+{
+    int option;
+    int result;
+    option = -9;
+    int temp;
 
+    while (option)
+    {
+        cout<<"\n -------------------------------\n";
+        cout<<" |       Binary Tree Menu      |\n";
+        cout<<" -------------------------------\n";
+        cout<<"\n -------------------------------\n";
+        cout<<" 1. Insert to Binary Tree\n";
+        cout<<" 2. Find in Binary Tree\n";
+        cout<<" 3. Delete from Binary Tree\n";
+        cout<<" 4. Print Nodes\n";
+        cout<<" 5. InOrder\n";
+        cout<<" 6. Insert Random numbers\n";
+        cout<<" 0. Quit\n";
+        cout<<" -------------------------------\n  ";
+        cin>>option;
+        switch(option)
+        {
+
+            case 1:
+                cout<<" Insert : ";
+                cin>>temp;
+                this->insert(temp);
+                //Sleep(1000);
+                break;
+            case 2:
+                cout<<" Find : ";
+                cin>>temp;
+                result = this->search(temp);
+                if (result)
+                    cout<<" Found '"<<temp<<"' appeared "<<result<<" time/s\n";
+                else
+                    cout<<" '"<<temp<<"' not found \n";
+                    //Sleep(1500);
+                break;
+            case 3:
+                cout<<" Delete : ";
+                cin>>temp;
+                if (delete_node(temp))
+                    cout<<" '"<<temp<<"' has been deleted \n";
+                else
+                    cout<<" '"<<temp<<"' not found \n";
+                    //Sleep(1500);
+                break;
+            case 4:
+                printDebug();
+                break;
+            case 5:
+                inorder();
+                break;
+            case 6:
+                cout<<" How many numbers : ";
+                cin>>temp;
+                for (int i = 0; i<temp; i++)
+                    insert(rand());
+                break;
+
+
+
+
+
+
+        }
+
+            //system("cls");
+
+
+    }
+}
+
+
+void check_if_pointer_is_null(void *p)
+{
+    if (!p)
+    {
+        cout<<"MEMORY ALLOCATION FAILED!\nExiting...";
+        //exit(-1);
+    }
+}

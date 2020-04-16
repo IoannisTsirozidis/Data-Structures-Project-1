@@ -3,6 +3,9 @@
 #include <iostream>
 #include <string>
 
+#include <cstdlib>
+#include <unistd.h>
+#include <windows.h>
 using namespace std;
 
 struct node
@@ -35,6 +38,8 @@ class BinarySearchTree
         void postorder();
 
         void printDebug();
+
+        void MENU();
 
 
 
@@ -71,4 +76,5 @@ class BinarySearchTree
 
 };
 
+void check_if_pointer_is_null(void *);
 #endif // BINARYSEARCHTREE_H

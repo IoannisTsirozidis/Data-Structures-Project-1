@@ -7,6 +7,7 @@
 #include "BinarySearchTree.h"
 
 #include <chrono>
+#include <cstdlib>
 using namespace std::chrono;
 
 using namespace std;
@@ -53,7 +54,7 @@ int main()
         }
     }
     */
-
+    /*
     int x;
     cin>>x;
 
@@ -65,8 +66,9 @@ int main()
 
     cout<<A.delete_node(10);
 
-    A.printDebug();
-    /*
+    //A.printDebug();
+
+
     long double mo = 0;
     for (int i = 0; i<1000;i++)
     {
@@ -79,8 +81,7 @@ int main()
     }
     cout << mo / 1000<<" microseconds "<<endl;
     */
-
-
+    A.MENU();
 
 
 

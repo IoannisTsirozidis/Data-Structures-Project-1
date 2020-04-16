@@ -56,28 +56,28 @@ int main()
 
     int x;
     cin>>x;
+
     while (x!= 0)
     {
         A.insert(x);
         cin>>x;
     }
 
-    cout<<A.delete_node(19);
+    cout<<A.delete_node(10);
 
     A.printDebug();
     /*
-12 9 21 19 25 18 20 0
-    double mo = 0;
-    for (int i = 0; i< 1; i++)
+    long double mo = 0;
+    for (int i = 0; i<1000;i++)
     {
         auto start = high_resolution_clock::now();
-        cout<<" Appeared "<<A.search("TSHE")<<" times"<<endl;
+        A.search(i);
         auto stop = high_resolution_clock::now();
         auto duration = duration_cast<microseconds>(stop-start);
         //cout <<" Time elapsed : "<< duration.count() << endl;
         mo += duration.count();
     }
-    cout << mo / 1<<" microseconds "<<endl;
+    cout << mo / 1000<<" microseconds "<<endl;
     */
 
 

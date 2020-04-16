@@ -58,7 +58,7 @@ class BinarySearchTree
 
         node* remove_one_child(node*);
 
-
+        node* search_parent(int key);
 
 
         void debugInfo(node *p);

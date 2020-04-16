@@ -119,10 +119,10 @@ void BinarySearchTree::debugInfo(node *p)
     cout<<" Value         : "<<p->value<<endl;
     cout<<" Counter       : "<<p->counter<<endl<<endl;
 
-    cout<<endl<<" Left Pointer  : "<<p->pleft<<endl;
+    //cout<<endl<<" Left Pointer  : "<<p->pleft<<endl;
     if (p->pleft)
     cout<<endl<<" Left Value  : "<<p->pleft->value<<endl;
-    cout<<endl<<" Right Pointer  : "<<p->pright<<endl;
+    //cout<<endl<<" Right Pointer  : "<<p->pright<<endl;
     if (p->pright)
         cout<<endl<<" Right Value : "<<p->pright->value<<endl;
     cout<<endl<<" ------------------------------- "<<endl;
@@ -137,30 +137,37 @@ void BinarySearchTree::printDebug()
 }
 
 
-
-
-
-bool BinarySearchTree::delete_node(int key_value)
+bool BinarySearchTree::delete_node(int key_value) ///TO KANAME XORIS ANADROMI
 {
     node* p_delete_node;    //O KOMVOS POU THELOUME NA DIAGRAPSOUME
-
+    node *parent;
     node* p_current;        ///O ELAXISTOS KOMVOS
 
-
     p_delete_node= search(root, key_value);         //VRISKOUME TON KOMVO
-
 
     if(!p_delete_node)           //AN DEN YPARXEI RETURN FALSE
         return false;
 
-
     //CASE 1. p_delete_node DEN EXEI PAIDIA
     if(p_delete_node->pleft==nullptr && p_delete_node->pright==nullptr)
     {
-        cout<<endl<<"The node "<<p_delete_node->value<<" has NOO child"<<endl;
-        search_Parent(root,p_delete_node->value);
-        //p_delete_node->value = 1;
-        //p_delete_node->value = nullptr;
+        cout<<"I hate kids"<<endl;
+        if (p_delete_node == root)
+        {
+            delete p_delete_node;
+            root =nullptr;
+        }
+
+        else
+        {
+            cout<<endl<<"The node "<<p_delete_node->value<<" has NOO child"<<endl;
+            parent = search_parent(key_value);
+            if (parent->pleft == p_delete_node)
+                parent->pleft = nullptr;
+            if (parent->pright == p_delete_node)
+                parent->pright = nullptr;
+            delete p_delete_node;
+        }
 
     }
     else
@@ -179,43 +186,61 @@ bool BinarySearchTree::delete_node(int key_value)
                     cout<<"NO LEFTTTTT"<<endl;
                     //return false;
                 }
+                if (p_delete_node == root)
+                {
+                    cout<<"EIMAI GROOT"<<endl;
+                    node * previous_root = root;
+                    if (p_delete_node->pright!= nullptr && p_delete_node->pleft == nullptr)
+                        root = root->pright;
+                    else
+                        root = root->pleft;
 
-                remove_one_child(p_delete_node);
+                    delete previous_root;
+
+                }
+                else
+                    remove_one_child(p_delete_node);
 
             }
 
-
-
         //CASE 3. p_delete_node EXEI DYO PAIDIA
-        if(p_delete_node->pleft!=nullptr && p_delete_node->pright!=nullptr)
+        else if(p_delete_node->pleft!=nullptr && p_delete_node->pright!=nullptr)
         {
-            cout<<endl<<"The node "<<p_delete_node->value<<" has two child"<<endl;
+            //cout<<endl<<"The node "<<p_delete_node->value<<" has two child"<<endl;
 
             p_current= p_delete_node->pright;
 
             while(p_current->pleft!= nullptr)
                 p_current= p_current->pleft;
 
-            //tha ftasoume se ena min p_current sto dexi ypodentro.
+            ///tha ftasoume se ena min p_current sto dexi ypodentro.
+
+            ///ANTIGRAFH tou VALUE kai tou Counter min STO p_delete_node
 
 
-            ///ANTIGRAFH STOIXEIWN min STO p_delete_node
-
-            p_delete_node->value = p_current->value;
-            p_delete_node->counter = p_current->counter;
-
-            p_delete_node->pright = p_current->pright;
-            //p_delete_node->pleft = p_current->pleft;
-
-            //SE PERIPTWSH OPOU CURRENT(min) DEN EXEI PAIDIA
-            if(p_current->pleft== nullptr && p_current->pright==nullptr)
+            if (p_current->pleft == nullptr && p_current->pright == nullptr) //DEN EXEI PAIDIA
             {
+                parent = search_parent(p_current->value);
+                if (parent->pleft == p_current)
+                    parent->pleft = nullptr;
+                if (parent->pright == p_current)
+                    parent->pright = nullptr;
+
+                p_delete_node->value = p_current->value;
+                p_delete_node->counter = p_current->counter;
+
                 delete p_current;
             }
+            if (p_current->pright != nullptr && p_current->pleft == nullptr) //EXEI ENA PAIDI STA DEXIA
+            {
 
-            //SE PERIPTWSH OPOU CURRENT(min) EXEI MONO ENA PAIDI STA DEXIA
-            if(p_current->pright!= nullptr)
+                p_delete_node->value = p_current->value;
+                p_delete_node->counter = p_current->counter;
+
                 remove_one_child(p_current);
+
+            }
+
         }
     }
     return true;
@@ -226,6 +251,12 @@ bool BinarySearchTree::delete_node(int key_value)
 
 node* BinarySearchTree::remove_one_child(node* p_node)
 {
+    if(p_node->pright!=nullptr && p_node->pleft!=nullptr)
+    {
+         cout<<"u fcking liar you said you had one child but you have two";
+         return nullptr;
+    }
+
     if(p_node->pleft!= nullptr && p_node->pright==nullptr)
     {
         node * next;
@@ -241,7 +272,7 @@ node* BinarySearchTree::remove_one_child(node* p_node)
 
     }
 
-    if(p_node->pleft==nullptr && p_node->pright!=nullptr)
+    if (p_node->pleft==nullptr && p_node->pright!=nullptr)
     {
         node * next;
         next = p_node->pright;
@@ -256,27 +287,29 @@ node* BinarySearchTree::remove_one_child(node* p_node)
     }
 
 
-    if(p_node->pright!=nullptr && p_node->pleft!=nullptr)
-    {
-         cout<<"u fcking liar";
-         return nullptr;
-    }
 
     return p_node;
 }
 
-void BinarySearchTree::search_Parent(node* p, int key_value)
+
+node* BinarySearchTree::search_parent(int key)
 {
+    node *parent = nullptr;
+    node *current = root;
+	// traverse the tree and search for the key
+	while (current != nullptr && current->value != key)
+	{
+		// update parent node as current node
+		parent = current;
 
-
-
-    if (p==NULL) return;
-    inorder(p->pleft);
-    if (p->pleft->value == key_value || p->pright->value == key_value)
-        cout<<p->value<<", ";
-    inorder(p->pright);
-
+		// if given key is less than the current node, go to left subtree
+		// else go to right subtree
+		if (key < current->value)
+			current = current->pleft;
+		else
+			current = current->pright;
+	}
+	return parent;
 }
-
 
 

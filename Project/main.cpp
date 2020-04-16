@@ -27,11 +27,11 @@ int main()
 
 
 
-
+    /*
     int k; //count = 0;
     ifstream file("input_file2.txt");
-    string linestr;
-    string temp_word;
+    int linestr;
+    int temp_word;
     while (getline(file, linestr))
     {
         k = linestr.length();
@@ -44,32 +44,43 @@ int main()
                 {
                     if (!isalpha(linestr[i]) || i ==k  )
                     {
-                        to_lower_str(temp_word);
+                        //to_lower_str(temp_word);
                         //cout<<temp_word<<endl; /// This is the insert part function
-                        A.insert(temp_word);
+                        //A.insert(temp_word);
                         temp_word.erase();
                     }
                 }
         }
     }
+    */
 
+    int x;
+    cin>>x;
 
-    A.preorder();
+    while (x!= 0)
+    {
+        A.insert(x);
+        cin>>x;
+    }
+
+    cout<<A.delete_node(10);
 
     A.printDebug();
-
-    double mo = 0;
-    for (int i = 0; i< 1; i++)
+    /*
+    long double mo = 0;
+    for (int i = 0; i<1000;i++)
     {
         auto start = high_resolution_clock::now();
-        cout<<" Appeared "<<A.search("TSHE")<<" times"<<endl;
+        A.search(i);
         auto stop = high_resolution_clock::now();
         auto duration = duration_cast<microseconds>(stop-start);
         //cout <<" Time elapsed : "<< duration.count() << endl;
         mo += duration.count();
     }
+    cout << mo / 1000<<" microseconds "<<endl;
+    */
 
-    cout << mo / 1<<" microseconds "<<endl;
+
 
 
 

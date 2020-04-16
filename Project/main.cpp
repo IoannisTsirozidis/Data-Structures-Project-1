@@ -54,16 +54,16 @@ int main()
     }
     */
 
-    int x;
+    string x;
     cin>>x;
 
-    while (x!= 0)
+    while (x!= "end")
     {
         A.insert(x);
         cin>>x;
     }
 
-    cout<<A.delete_node(10);
+    cout<<A.delete_node("test");
 
     A.printDebug();
     /*

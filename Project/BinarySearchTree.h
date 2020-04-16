@@ -7,7 +7,7 @@ using namespace std;
 
 struct node
 {
-    int value;
+    string value;
     node* pleft;
     node* pright;
     int counter =0;
@@ -24,11 +24,11 @@ class BinarySearchTree
 
         //FUNCTIONS
 
-        void insert(int);
+        void insert(string);
 
-        int search(int);
+        int search(string);
 
-        bool delete_node(int);
+        bool delete_node(string);
 
         void inorder();
         void preorder();
@@ -47,18 +47,18 @@ class BinarySearchTree
         node* root = nullptr;
 
 
-        node * insert(node *, int);
+        node * insert(node *, string);
 
-        node * search(node *, int);
-
-
+        node * search(node *, string);
 
 
-        void search_Parent(node* p_node, int key_value);
+
+
+        void search_Parent(node* p_node, string key_value);
 
         node* remove_one_child(node*);
 
-        node* search_parent(int key);
+        node* search_parent(string key);
 
 
         void debugInfo(node *p);

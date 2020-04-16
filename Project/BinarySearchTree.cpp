@@ -3,7 +3,7 @@
 struct node
 {
     int counter;
-    int value;
+    string value;
     node* pleft;
     node* pright;
 };
@@ -18,12 +18,12 @@ BinarySearchTree::~BinarySearchTree()       //Default Destructor
 
 }
 
-void BinarySearchTree::insert(int key_value)
+void BinarySearchTree::insert(string key_value)
 {
     root = insert(root,key_value);
 }
 
-node* BinarySearchTree::insert(node *p_node,int key_value)
+node* BinarySearchTree::insert(node *p_node,string key_value)
 {
     if (p_node == nullptr)
     {
@@ -76,7 +76,7 @@ void BinarySearchTree::postorder(node *p)
     if (p==NULL) return;postorder(p->pleft);postorder(p->pright);cout<<p->value<<", ";
 }
 
-int BinarySearchTree::search(int key_value)
+int BinarySearchTree::search(string key_value)
 {
     node* temp;
 
@@ -92,7 +92,7 @@ int BinarySearchTree::search(int key_value)
         cout<<"<"<<temp->value<<">"<<" found ";
     */
 }
-node* BinarySearchTree::search(node* p_node, int key_value)
+node* BinarySearchTree::search(node* p_node, string key_value)
 {
         if(p_node== nullptr)
             return nullptr;
@@ -115,14 +115,14 @@ void BinarySearchTree::debugInfo(node *p)
     debugInfo(p->pleft);
     debugInfo(p->pright);
     cout<<endl<<endl<<" ------------------------------- "<<endl<<endl;
-    cout<<" Current Point : "<<p<<endl;
+    cout<<" Current Postring : "<<p<<endl;
     cout<<" Value         : "<<p->value<<endl;
     cout<<" Counter       : "<<p->counter<<endl<<endl;
 
-    //cout<<endl<<" Left Pointer  : "<<p->pleft<<endl;
+    //cout<<endl<<" Left Postringer  : "<<p->pleft<<endl;
     if (p->pleft)
     cout<<endl<<" Left Value  : "<<p->pleft->value<<endl;
-    //cout<<endl<<" Right Pointer  : "<<p->pright<<endl;
+    //cout<<endl<<" Right Postringer  : "<<p->pright<<endl;
     if (p->pright)
         cout<<endl<<" Right Value : "<<p->pright->value<<endl;
     cout<<endl<<" ------------------------------- "<<endl;
@@ -137,7 +137,7 @@ void BinarySearchTree::printDebug()
 }
 
 
-bool BinarySearchTree::delete_node(int key_value) ///TO KANAME XORIS ANADROMI
+bool BinarySearchTree::delete_node(string key_value) ///TO KANAME XORIS ANADROMI
 {
     node* p_delete_node;    //O KOMVOS POU THELOUME NA DIAGRAPSOUME
     node *parent;
@@ -292,7 +292,7 @@ node* BinarySearchTree::remove_one_child(node* p_node)
 }
 
 
-node* BinarySearchTree::search_parent(int key)
+node* BinarySearchTree::search_parent(string key)
 {
     node *parent = nullptr;
     node *current = root;

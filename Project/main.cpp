@@ -1,47 +1,86 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <vector>
-#include "Tree.h"
+#include <algorithm>
+#include <ctype.h>
+#include <cstring>
+#include "BinarySearchTree.h"
+
+#include <chrono>
+using namespace std::chrono;
+
 using namespace std;
+
+
+
+void to_lower_str(string &data)
+{
+    transform(data.begin(), data.end(), data.begin(),[](unsigned char c){return tolower(c);} );
+}
+
 
 
 int main()
 {
+
+    BinarySearchTree A;
+
+
+
     /*
-    vector<string> ArrayWithWords;
-    size_t d = 0;
-
-
-    ifstream file("input_file.txt");
-    string linestr;
+    int k; //count = 0;
+    ifstream file("input_file2.txt");
+    int linestr;
+    int temp_word;
     while (getline(file, linestr))
     {
-        ArrayWithWords.push_back(linestr);
-        d++;
+        k = linestr.length();
+        for (int i=0; i<=k; i++)
+        {
+            if (isalpha(linestr[i]))
+                temp_word+=linestr[i];
+            else
+                if (temp_word.length() != 0)
+                {
+                    if (!isalpha(linestr[i]) || i ==k  )
+                    {
+                        //to_lower_str(temp_word);
+                        //cout<<temp_word<<endl; /// This is the insert part function
+                        //A.insert(temp_word);
+                        temp_word.erase();
+                    }
+                }
+        }
     }
+    */
 
+    int x;
+    cin>>x;
 
-
-    for (int i = 0; i < ArrayWithWords.size(); i++)
+    while (x!= 0)
     {
-        cout<<ArrayWithWords[i]<<"                                      With strlen =  "<<ArrayWithWords[i].size()<<endl;
-        d+=ArrayWithWords[i].size();
-
+        A.insert(x);
+        cin>>x;
     }
-    cout<<"\n\n\n-------------------------------"<<endl;
-    cout<<"The number of lines is "<<ArrayWithWords.size()<<endl;
-    cout<<"Total number of characters = "<<d<<endl;
+
+    cout<<A.delete_node(10);
+
+    A.printDebug();
+    /*
+    long double mo = 0;
+    for (int i = 0; i<1000;i++)
+    {
+        auto start = high_resolution_clock::now();
+        A.search(i);
+        auto stop = high_resolution_clock::now();
+        auto duration = duration_cast<microseconds>(stop-start);
+        //cout <<" Time elapsed : "<< duration.count() << endl;
+        mo += duration.count();
+    }
+    cout << mo / 1000<<" microseconds "<<endl;
     */
 
 
-    Tree A;
-    A.add(10);
-    A.add(20);
-    A.add(20);
-    A.InOrder();
-
-    /**< Something is wrong but I don't know what... Good luck debugging :) */
 
 
 

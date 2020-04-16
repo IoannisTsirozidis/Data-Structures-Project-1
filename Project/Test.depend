@@ -13,3 +13,44 @@
 1586361215 c:\users\azza8\documents\github\data-structures-project\test\tree.h
 	<string>
 
+1586460102 source:c:\users\azza8\documents\github\data-structures-project\project\tree.cpp
+	"Tree.h"
+	<iostream>
+
+1586616232 c:\users\azza8\documents\github\data-structures-project\project\tree.h
+	<string>
+
+1587054259 source:c:\users\azza8\documents\github\data-structures-project\project\main.cpp
+	<iostream>
+	<fstream>
+	<string>
+	<algorithm>
+	<ctype.h>
+	<cstring>
+	"BinarySearchTree.h"
+	<chrono>
+
+1586889872 source:c:\users\user\documents\github\data-structures-project\project\main.cpp
+	<iostream>
+	<fstream>
+	<string>
+	<algorithm>
+	<ctype.h>
+	<cstring>
+	"BinarySearchTree.h"
+	<chrono>
+
+1586888119 c:\users\user\documents\github\data-structures-project\project\binarysearchtree.h
+	<iostream>
+	<string>
+
+1587050685 c:\users\azza8\documents\github\data-structures-project\project\binarysearchtree.h
+	<iostream>
+	<string>
+
+1587053954 source:c:\users\azza8\documents\github\data-structures-project\project\binarysearchtree.cpp
+	"BinarySearchTree.h"
+
+1586889497 source:c:\users\user\documents\github\data-structures-project\project\binarysearchtree.cpp
+	"BinarySearchTree.h"
+

@@ -27,11 +27,11 @@ int main()
 
 
 
-    /*
+
     int k; //count = 0;
-    ifstream file("input_file2.txt");
-    int linestr;
-    int temp_word;
+    ifstream file("words.txt");
+    string linestr;
+    string temp_word;
     while (getline(file, linestr))
     {
         k = linestr.length();
@@ -44,18 +44,20 @@ int main()
                 {
                     if (!isalpha(linestr[i]) || i ==k  )
                     {
-                        //to_lower_str(temp_word);
+                        to_lower_str(temp_word);
                         //cout<<temp_word<<endl; /// This is the insert part function
-                        //A.insert(temp_word);
+                        A.insert(temp_word);
                         temp_word.erase();
                     }
                 }
         }
     }
-    */
+    cin>>temp_word;
 
+
+/*
     string x;
-    cin>>x;
+
 
     while (x!= "end")
     {
@@ -66,7 +68,7 @@ int main()
     cout<<A.delete_node("test");
 
     A.printDebug();
-    /*
+
     long double mo = 0;
     for (int i = 0; i<1000;i++)
     {

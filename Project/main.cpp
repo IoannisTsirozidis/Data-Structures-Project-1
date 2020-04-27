@@ -29,7 +29,7 @@ int main()
 
 
     int k; //count = 0;
-    ifstream file("words.txt");
+    ifstream file("input_file2.txt");
     string linestr;
     string temp_word;
     while (getline(file, linestr))
@@ -52,7 +52,7 @@ int main()
                 }
         }
     }
-    cin>>temp_word;
+    A.MENU();
 
 
 /*

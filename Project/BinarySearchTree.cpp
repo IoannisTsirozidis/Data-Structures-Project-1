@@ -313,3 +313,103 @@ node* BinarySearchTree::search_parent(string key)
 }
 
 
+void BinarySearchTree::MENU()
+{
+    int option;
+    int result;
+    option = -9;
+    string input;
+    clock_t start, end;
+    start = 0;
+    end = 0;
+    bool was_del;
+    int nodes;
+    while (option)
+    {
+        cout<<"\n -------------------------------\n";
+        cout<<" |       Binary Tree Menu      |\n";
+        cout<<" -------------------------------\n";
+        cout<<"\n -------------------------------\n";
+        cout<<" 1. Insert to Binary Tree\n";
+        cout<<" 2. Find in Binary Tree\n";
+        cout<<" 3. Delete from Binary Tree\n";
+        cout<<" 4. Print All Nodes\n";
+        cout<<" 5. Get Number of Nodes\n";
+
+
+        cout<<" 0. Quit\n";
+        cout<<" -------------------------------\n  ";
+        cin>>option;
+        switch(option)
+        {
+
+            case 1:
+                start = clock();
+                cout<<" Insert : ";
+                cin>>input;
+                this->insert(input);
+                //Sleep(1000);
+                end = clock();
+
+                break;
+            case 2:
+
+                cout<<" Find : ";
+                cin>>input;
+                start = clock();
+                result = this->search(input);
+                end = clock();
+                if (result)
+                    cout<<" Found '"<<input<<"' appeared "<<result<<" time/s\n";
+                else
+                    cout<<" '"<<input<<"' not found \n";
+                    //Sleep(1500);
+
+                break;
+            case 3:
+                cout<<" Delete : ";
+                cin>>input;
+                start = clock();
+                was_del = delete_node(input);
+                end = clock();
+                if (was_del)
+                    cout<<" '"<<input<<"' has been deleted \n";
+                else
+                    cout<<" '"<<input<<"' not found \n";
+                    //Sleep(1500);
+
+                break;
+            case 4:
+                start = clock();
+                printDebug();
+                end = clock();
+                break;
+            case 5:
+                start = clock();
+                nodes = size(root);
+                end = clock();
+                cout<<"The size is : " <<nodes<<endl;
+
+                break;
+
+
+
+
+        }
+        double time_taken = double(end - start) / double(CLOCKS_PER_SEC);
+        cout << "Operation took : " << fixed<< time_taken << setprecision(5);
+cout << " sec " << endl;
+
+            //system("cls");
+
+
+    }
+}
+int BinarySearchTree::size(node* node)
+{
+    if (node == NULL)
+        return 0;
+    else
+        return(size(node->pleft) + 1 + size(node->pright));
+}
+

@@ -2,6 +2,8 @@
 #define BINARYSEARCHTREE_H
 #include <iostream>
 #include <string>
+#include <bits/stdc++.h>
+
 
 using namespace std;
 
@@ -36,6 +38,8 @@ class BinarySearchTree
 
         void printDebug();
 
+        void MENU();
+
 
 
 
@@ -51,7 +55,8 @@ class BinarySearchTree
 
         node * search(node *, string);
 
-
+        void printBT(const std::string& prefix, const node*, bool isLeft);
+        void printBT(const node* );
 
 
         void search_Parent(node* p_node, string key_value);
@@ -65,6 +70,8 @@ class BinarySearchTree
         void preorder(node *p);
         void inorder(node *p);
         void postorder(node *p);
+
+        int size(node *);
 
 
 

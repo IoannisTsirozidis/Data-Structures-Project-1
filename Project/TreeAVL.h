@@ -1,23 +1,44 @@
-#ifndef TREEAVL_H
-#define TREEAVL_H
+#ifndef AVL_TREE_H
+#define AVL_TREE_H
 
+#include <iostream>
+#include <string>
 
-class TreeAVL
+using namespace std;
+
+struct node
 {
-    struct node
-    {
-        // members will be public without `private:` keyword
-        int value; //This should be the date type of the Tree
-        node *pleft;
-        node *pright;
-    };
+    int value;
+    node* pleft;
+    node* pright;
+    int counter = 0;
+    int balance_factor = 0;       ///maxleft- maxright    MONOPATIA
+};
+
+class AVL_tree
+{
     public:
-        TreeAVL();
-        virtual ~TreeAVL();
+        AVL_tree();
+        virtual ~AVL_tree();
+
+
+
+        int height(node*);
+        int maxof2(int, int);
+
+        int get_bf(node*);
+
+
+
+
+
 
     protected:
+
+
+
 
     private:
 };
 
-#endif // TREEAVL_H
+#endif // AVL_TREE_H

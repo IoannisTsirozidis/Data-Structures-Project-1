@@ -1,5 +1,5 @@
-#ifndef AVL_TREE_H
-#define AVL_TREE_H
+#ifndef TREEAVL_H
+#define TREEAVL_H
 
 #include <iostream>
 #include <string>
@@ -15,22 +15,37 @@ struct node
     int balance_factor = 0;       ///maxleft- maxright    MONOPATIA
 };
 
-class AVL_tree
+class TreeAVL
 {
     public:
-        AVL_tree();
-        virtual ~AVL_tree();
+        TreeAVL();
+        virtual ~TreeAVL();
+
+
+        void insert(int key)
+        {
+            root = insert(root, key );
+        }
+
+        int search(int);
+
+        void display()
+        {
+            cout<<endl<<endl<<endl;
+            display(root,1);
+            cout<<endl<<endl<<endl;
+        }
+
+        void debugInfo()
+        {
+            debugInfo(root);
+        }
 
 
 
-        int height(node*);
-        int maxof2(int, int);
-
-        int get_bf(node*);
-
-
-
-
+        void inorder();
+        void preorder();
+        void postorder();
 
 
     protected:
@@ -39,6 +54,30 @@ class AVL_tree
 
 
     private:
+        node* root = nullptr;
+
+        int height(node*);
+        int maxof2(int, int);
+        int get_bf(node*);
+
+        void display(node *ptr, int level);
+
+        node* rr_rotation(node *parent);
+        node* rl_rotation(node *parent);
+
+        node* ll_rotation(node *parent);
+        node* lr_rotation(node *parent);
+
+
+        node* insert(node *p_node,int key_value);
+        node * search(node *, int);
+
+        void debugInfo(node *);
+
+        void preorder(node *p);
+        void inorder(node *p);
+        void postorder(node *p);
+
 };
 
-#endif // AVL_TREE_H
+#endif // TREEAVL_H

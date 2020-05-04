@@ -10,14 +10,11 @@ int main()
     TreeAVL A;
 
     A.insert(8);
-    A.insert(26);
-    A.insert(50);
-    A.insert(11);
-    A.insert(9);
+    A.insert(45);
     A.insert(4);
-    A.insert(20);
-    A.insert(1);
-
+    A.insert(60);
+    A.insert(61);
+    A.insert(85);
 
     A.display();
     A.debugInfo();

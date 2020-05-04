@@ -29,17 +29,11 @@ class TreeAVL
 
         int search(int);
 
-        void display()
-        {
-            cout<<endl<<endl<<endl;
-            display(root,1);
-            cout<<endl<<endl<<endl;
-        }
+        void display(){cout<<endl<<endl<<endl;display(root,1);cout<<endl<<endl<<endl;}
 
-        void debugInfo()
-        {
-            debugInfo(root);
-        }
+        void debugInfo(){debugInfo(root);}
+
+        bool delete_node(int);
 
 
 
@@ -68,9 +62,13 @@ class TreeAVL
         node* ll_rotation(node *parent);
         node* lr_rotation(node *parent);
 
+        node* remove_one_child(node*);
+
 
         node* insert(node *p_node,int key_value);
         node * search(node *, int);
+
+        node* search_parent(int key);
 
         void debugInfo(node *);
 

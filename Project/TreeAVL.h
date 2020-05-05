@@ -64,7 +64,7 @@ class TreeAVL
 
 
 
-
+        void fix_bf_for_all(node * p_node);
 
 
         void display(node *ptr, int level);
@@ -76,6 +76,8 @@ class TreeAVL
         node* lr_rotation(node *parent);
 
         node* remove_one_child(node*);
+
+
 
 
         node* insert(node *p_node,int key_value);

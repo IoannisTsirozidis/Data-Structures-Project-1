@@ -10,15 +10,20 @@ TreeAVL::~TreeAVL()
 {
     //dtor
 }
+
 int TreeAVL::search(int key_value)
 {
     node* temp;
 
     temp = search(root, key_value);
     if(temp==nullptr)
-        return 0;
-    else
-        return temp->counter;
+        {
+            cout<<"Not Found"<<endl;
+            return 0;
+        }
+
+    cout<<"Appeared "<<temp->counter<<" time(s)"<<endl;
+    return temp->counter;
     /*
     if(temp==nullptr)
         cout<<"not found"<<endl;
@@ -74,12 +79,17 @@ int TreeAVL::height(node* mynode)      //ANADROMIKH SYNARTHSH POU VRISKEI TO MEG
 }
 
 
-void TreeAVL::update_update(node *p)
+void TreeAVL::fix_bf_for_all(node * p)  ///FIX HEIGHT FOR ALL NODES
 {
-        p->
+    if (p==nullptr)
+        return;
+
+    fix_bf_for_all(p->pleft);
+    fix_bf_for_all(p->pright);
+    update_bf(p);
+    //cout<<p->value<<", ";
+
 }
-
-
 
 
 
@@ -119,20 +129,6 @@ void TreeAVL::update_bf(node *p)        //UPDATES BALANCE FACTOR OF NODE
 }
 
 
-void TreeAVL::check_balance_preorder(node *p)
-{
-    if (p==nullptr)
-        return;
-
-    update_bf(p);
-    preorder(p->pleft);
-
-    update_bf(p);
-    preorder(p->pright);
-
-}
-
-
 
 
 
@@ -167,51 +163,51 @@ node* TreeAVL::insert(node *p_node,int key_value) ///Anadromi
     if (key_value > p_node->value)
     {
         p_node->pright = insert(p_node->pright, key_value);
-        check_balance_preorder(root);
+
     }
 
     else if (key_value == p_node->value)
     {
         p_node->counter += 1;
-        check_balance_preorder(root);
+
         return p_node;
 
     }
     else
     {
         p_node->pleft = insert(p_node->pleft, key_value);
-        check_balance_preorder(root);
+
     }
 
 
     ///Check the balance of the TreeAVL
 
-    check_balance_preorder(root);
+    //check_balance_preorder(root);                        ///checks balance factor
 
     int bal = get_bf(p_node);
 
-    cout <<"Balance of "<<p_node->value<<" is "<<bal<<endl;
+    //cout <<"Balance of "<<p_node->value<<" is "<<bal<<endl;
 
 
     if (bal >1) ///ARXIZEI ME ARISTERA
     {
         if (key_value < p_node->pleft->value)
         {
-            cout<<"LL !!"<<endl;                            //LEFT LEFT ROTATION
+            //cout<<"LL !!"<<endl;                            //LEFT LEFT ROTATION
             p_node = ll_rotation(p_node);
 
-            check_balance_preorder(root);               ///checks balance factor
+            //check_balance_preorder(root);               ///checks balance factor
         }
 
 
 
         if (key_value > p_node->pleft->value)
         {
-            cout<<"LR !!"<<endl;                            //LEFT RIGHT ROTATION
+            //cout<<"LR !!"<<endl;                            //LEFT RIGHT ROTATION
 
             p_node = lr_rotation(p_node);
 
-            check_balance_preorder(root);               ///checks balance factor
+            //check_balance_preorder(root);               ///checks balance factor
         }
 
     }
@@ -220,27 +216,27 @@ node* TreeAVL::insert(node *p_node,int key_value) ///Anadromi
 
         if (key_value < p_node->pright->value)
         {
-            cout<<"RL !!"<<endl;                            //RIGHT LEFT ROTATION
+            //cout<<"RL !!"<<endl;                            //RIGHT LEFT ROTATION
             p_node = rl_rotation(p_node);
 
-            check_balance_preorder(root);               ///checks balance factor
+            //check_balance_preorder(root);               ///checks balance factor
         }
 
 
         if (key_value > p_node->pright->value)
         {
-            cout<<"RR !!"<<endl;                            //RIGHT RIGHT ROTATION
+            //cout<<"RR !!"<<endl;                            //RIGHT RIGHT ROTATION
             p_node = rr_rotation(p_node);
 
-            check_balance_preorder(root);               ///checks balance factor
+            //check_balance_preorder(root);               ///checks balance factor
 
 
         }
 
     }
-    cout<<"BALANCE FACTOR : "<<p_node->balance_factor<<endl;
+    //cout<<"BALANCE FACTOR : "<<p_node->balance_factor<<endl;
 
-    check_balance_preorder(root);
+    fix_bf_for_all(p_node);         ///FIX BF AFTER ROTATION
 
     return p_node;
 }
@@ -491,14 +487,14 @@ bool TreeAVL::delete_node(int key_value) ///TO KANAME XORIS ANADROMI
     node *p_node = root;
     ///Check the balance of the TreeAVL
     int bal = get_bf(p_node);
-    cout <<"Balance of "<<p_node->value<<" is "<<bal<<endl;
+    //cout <<"Balance of "<<p_node->value<<" is "<<bal<<endl;
 
 
     if (bal >1) ///ARXIZEI ME ARISTERA
     {
         if (key_value < p_node->pleft->value)
         {
-            cout<<"LL !!"<<endl;
+            //cout<<"LL !!"<<endl;
             p_node = ll_rotation(p_node);
         }
         if (key_value > p_node->pleft->value)
@@ -512,22 +508,22 @@ bool TreeAVL::delete_node(int key_value) ///TO KANAME XORIS ANADROMI
     {
         if (key_value < p_node->pright->value)
         {
-            cout<<"RL !!"<<endl;
+            //cout<<"RL !!"<<endl;
             p_node = rl_rotation(p_node);
         }
         if (key_value > p_node->pright->value)
         {
-            cout<<"RR !!"<<endl;
+            //cout<<"RR !!"<<endl;
             p_node = rr_rotation(p_node);
 
         }
 
     }
 
-    cout<<"BALANCE FACTOR : "<<p_node->balance_factor<<endl;
+    //cout<<"BALANCE FACTOR : "<<p_node->balance_factor<<endl;
 
 
-
+    fix_bf_for_all(root);
     return true;
 
 }

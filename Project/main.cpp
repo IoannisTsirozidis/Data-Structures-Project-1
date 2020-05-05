@@ -12,9 +12,13 @@ int main()
     A.insert(8);
     A.insert(45);
     A.insert(4);
-    A.insert(60);
-    A.insert(61);
-    A.insert(85);
+    A.insert(80);
+    A.insert(81);
+    //A.insert(43);
+    //A.insert(46);
+
+
+
 
     A.display();
     A.debugInfo();

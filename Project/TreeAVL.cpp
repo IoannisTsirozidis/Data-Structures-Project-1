@@ -74,6 +74,22 @@ int TreeAVL::height(node* mynode)      //ANADROMIKH SYNARTHSH POU VRISKEI TO MEG
 }
 
 
+void TreeAVL::update_update(node *p)
+{
+        p->
+}
+
+
+
+
+
+
+
+
+
+///balance factor
+
+
 int TreeAVL::get_bf(node* mynode)      //EPISTREFEI TO BALANCE FACTOR TOU KOMVOU
 {
     int lheight, rheight, bf;
@@ -89,6 +105,53 @@ int TreeAVL::get_bf(node* mynode)      //EPISTREFEI TO BALANCE FACTOR TOU KOMVOU
 }
 
 
+
+void TreeAVL::update_bf(node *p)        //UPDATES BALANCE FACTOR OF NODE
+{
+    int lheight, rheight, bf;
+
+    lheight= height(p->pleft);
+    rheight= height(p->pright);
+
+    bf= lheight- rheight;               //maxleft- maxright; ...[-1, 0, 1]... an EINAI BALANCED
+
+    p->balance_factor= bf;       //PEIRAZEI TO VALUE BALANCE_FACTOR TOU ANTIKEIMENOU
+}
+
+
+void TreeAVL::check_balance_preorder(node *p)
+{
+    if (p==nullptr)
+        return;
+
+    update_bf(p);
+    preorder(p->pleft);
+
+    update_bf(p);
+    preorder(p->pright);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 node* TreeAVL::insert(node *p_node,int key_value) ///Anadromi
 {
     if (p_node == nullptr)///Create the new node and return the address
@@ -102,19 +165,31 @@ node* TreeAVL::insert(node *p_node,int key_value) ///Anadromi
         return p_node;
     }
     if (key_value > p_node->value)
+    {
         p_node->pright = insert(p_node->pright, key_value);
+        check_balance_preorder(root);
+    }
+
     else if (key_value == p_node->value)
     {
-        p_node->counter += 1;                                   ///LOOK OUT REMINDER !!!!!! FIXED MAYBE
+        p_node->counter += 1;
+        check_balance_preorder(root);
         return p_node;
 
     }
     else
+    {
         p_node->pleft = insert(p_node->pleft, key_value);
+        check_balance_preorder(root);
+    }
 
 
     ///Check the balance of the TreeAVL
+
+    check_balance_preorder(root);
+
     int bal = get_bf(p_node);
+
     cout <<"Balance of "<<p_node->value<<" is "<<bal<<endl;
 
 
@@ -122,33 +197,50 @@ node* TreeAVL::insert(node *p_node,int key_value) ///Anadromi
     {
         if (key_value < p_node->pleft->value)
         {
-            cout<<"LL !!"<<endl;
+            cout<<"LL !!"<<endl;                            //LEFT LEFT ROTATION
             p_node = ll_rotation(p_node);
+
+            check_balance_preorder(root);               ///checks balance factor
         }
+
+
+
         if (key_value > p_node->pleft->value)
         {
-            cout<<"LR !!"<<endl;
+            cout<<"LR !!"<<endl;                            //LEFT RIGHT ROTATION
+
             p_node = lr_rotation(p_node);
+
+            check_balance_preorder(root);               ///checks balance factor
         }
 
     }
     if (bal < -1)///ARXIZEI ME DEXIA
     {
+
         if (key_value < p_node->pright->value)
         {
-            cout<<"RL !!"<<endl;
+            cout<<"RL !!"<<endl;                            //RIGHT LEFT ROTATION
             p_node = rl_rotation(p_node);
+
+            check_balance_preorder(root);               ///checks balance factor
         }
+
+
         if (key_value > p_node->pright->value)
         {
-            cout<<"RR !!"<<endl;
+            cout<<"RR !!"<<endl;                            //RIGHT RIGHT ROTATION
             p_node = rr_rotation(p_node);
+
+            check_balance_preorder(root);               ///checks balance factor
 
 
         }
 
     }
     cout<<"BALANCE FACTOR : "<<p_node->balance_factor<<endl;
+
+    check_balance_preorder(root);
 
     return p_node;
 }
@@ -170,12 +262,20 @@ void TreeAVL::display(node *ptr, int level)
     }
 }
 
-node* TreeAVL::rr_rotation(node *parent)
+node* TreeAVL::rr_rotation(node *parent)            ///RIGHT RIGHT ROTATION
 {
     node *temp;
     temp = parent->pright;
+    //update_bf(temp);
+
     parent->pright = temp->pleft;
+    //update_bf(parent->pright);
+
+    //update_bf(parent);
+
     temp->pleft = parent;
+    //update_bf(temp->pleft);
+
     return temp;
 }
 
@@ -184,17 +284,24 @@ node* TreeAVL::rl_rotation(node *parent)
 {
     node *temp;
     temp = parent->pright;
+
     parent->pright = ll_rotation (temp);
+
     return rr_rotation (parent);
 }
 
 
-node* TreeAVL::ll_rotation(node *parent)
+node* TreeAVL::ll_rotation(node *parent)            ///LEFT LEFT ROTATION
 {
     node *temp;
     temp = parent->pleft;
+    //update_bf(temp);
+
     parent->pleft = temp->pright;
+    //update_bf(parent->pleft);
+
     temp->pright = parent;
+    //update_bf(temp->pright);
     return temp;
 }
 
@@ -235,7 +342,13 @@ void TreeAVL::preorder()
 
 void TreeAVL::preorder(node *p)
 {
-    if (p==NULL) return;cout<<p->value<<", ";preorder(p->pleft);preorder(p->pright);
+    if (p==NULL)
+        return;
+    cout<<p->value<<", ";
+
+    preorder(p->pleft);
+
+    preorder(p->pright);
 }
 
 void TreeAVL::inorder()
@@ -244,7 +357,9 @@ void TreeAVL::inorder()
 }
 void TreeAVL::inorder(node *p)
 {
-    if (p==NULL) return;
+    if (p==NULL)
+        return;
+
     inorder(p->pleft);
     cout<<p->value<<", ";
     inorder(p->pright);
@@ -256,7 +371,12 @@ void TreeAVL::postorder()
 }
 void TreeAVL::postorder(node *p)
 {
-    if (p==NULL) return;postorder(p->pleft);postorder(p->pright);cout<<p->value<<", ";
+    if (p==nullptr)
+        return;
+
+    postorder(p->pleft);
+    postorder(p->pright);
+    cout<<p->value<<", ";
 }
 
 

@@ -52,7 +52,20 @@ class TreeAVL
 
         int height(node*);
         int maxof2(int, int);
+
+
+
+        ///balance factor
         int get_bf(node*);
+        void update_bf(node *p);
+        void check_balance_preorder(node *p);
+
+        void update_height(node *p);
+
+
+
+
+
 
         void display(node *ptr, int level);
 

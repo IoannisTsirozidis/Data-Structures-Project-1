@@ -4,7 +4,7 @@
 #include <string>
 using namespace std;
 
-struct node
+struct nodeH
 {
     string value;
     int counter = 0;
@@ -17,15 +17,13 @@ class HashTable
         HashTable(int size);
         virtual ~HashTable();
 
-
         void insert(string);
         int search(string);
         void DebugInfo();
-
     protected:
 
     private:
-        node * Array;
+        nodeH * Array;
         int size;
 
         unsigned long int hash_algo(string);

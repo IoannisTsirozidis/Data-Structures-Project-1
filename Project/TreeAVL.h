@@ -6,11 +6,11 @@
 
 using namespace std;
 
-struct node
+struct nodeA
 {
     string value;
-    node* pleft;
-    node* pright;
+    nodeA* pleft;
+    nodeA* pright;
     int counter = 0;
     int balance_factor = 0;       ///  BALANCE FACTOR =  MAX LEFT HEIGHT  -   MAX RIGHT HEIGHT
 };
@@ -33,7 +33,7 @@ class TreeAVL
 
 
 
-        bool delete_node(string);              //Delete function, for main.
+        bool delete_nodeA(string);              //Delete function, for main.
 
 
 
@@ -67,53 +67,53 @@ class TreeAVL
 
     private:    ///In private there are the background functions.
 
-        node* root = nullptr;           //Private node* root.
+        nodeA* root = nullptr;           //Private nodeA* root.
 
 
 
-        int height(node*);
+        int height(nodeA*);
         int maxof2(int, int);
 
 
 
         ///balance factor
-        int get_bf(node*);
-        void update_bf(node *p);
-        void check_balance_preorder(node *p);
+        int get_bf(nodeA*);
+        void update_bf(nodeA *p);
+        void check_balance_preorder(nodeA *p);
 
 
-        void update_height(node *p);
-        void fix_bf_for_all(node * p_node);
+        void update_height(nodeA *p);
+        void fix_bf_for_all(nodeA * p_nodeA);
 
 
-        void display(node *ptr, int level);
-        void debugInfo(node *);
-
-
-
-        node* rr_rotation(node *parent);
-        node* rl_rotation(node *parent);
-
-        node* ll_rotation(node *parent);
-        node* lr_rotation(node *parent);
+        void display(nodeA *ptr, int level);
+        void debugInfo(nodeA *);
 
 
 
-        node* remove_one_child(node*);
+        nodeA* rr_rotation(nodeA *parent);
+        nodeA* rl_rotation(nodeA *parent);
+
+        nodeA* ll_rotation(nodeA *parent);
+        nodeA* lr_rotation(nodeA *parent);
+
+
+
+        nodeA* remove_one_child(nodeA*);
 
 
 
 
-        node* insert(node *p_node, string key_value);
-        node * search(node *, string);
+        nodeA* insert(nodeA *p_nodeA, string key_value);
+        nodeA * search(nodeA *, string);
 
-        node* search_parent(string key);
+        nodeA* search_parent(string key);
 
 
 
-        void preorder(node *p);
-        void inorder(node *p);
-        void postorder(node *p);
+        void preorder(nodeA *p);
+        void inorder(nodeA *p);
+        void postorder(nodeA *p);
 
 };
 

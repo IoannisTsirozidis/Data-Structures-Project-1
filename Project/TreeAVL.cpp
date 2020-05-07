@@ -29,35 +29,35 @@ TreeAVL::~TreeAVL()     //Default Destructor
 //Search Function for Main
 int TreeAVL::search(string key_value)
 {
-    node* temp;
+    nodeA* temp;
 
     temp = search(root, key_value);
 
     if(temp==nullptr)
         {
-            cout<<"Not Found"<<endl;
+            //cout<<"Not Found"<<endl;
             return 0;
         }
 
-    cout<<"Appeared "<<temp->counter<<" time(s)"<<endl;
+    //cout<<"Appeared "<<temp->counter<<" time(s)"<<endl;
     return temp->counter;
 
 }
 
 //Background Search function
-node* TreeAVL::search(node* p_node, string key_value)
+nodeA* TreeAVL::search(nodeA* p_nodeA, string key_value)
 {
-        if(p_node== nullptr)
+        if(p_nodeA== nullptr)
             return nullptr;
 
-        if(p_node->value == key_value)
-            return p_node;
+        if(p_nodeA->value == key_value)
+            return p_nodeA;
 
-        else if(key_value > p_node->value)
-            return search(p_node->pright, key_value);
+        else if(key_value > p_nodeA->value)
+            return search(p_nodeA->pright, key_value);
 
         else
-            return search(p_node->pleft, key_value);
+            return search(p_nodeA->pleft, key_value);
 }
 
 ///-----------------------end of section-----------------------------------------
@@ -71,54 +71,54 @@ node* TreeAVL::search(node* p_node, string key_value)
 
 ///---------------Section: Insert Function------------------------------------
 
-node* TreeAVL::insert(node *p_node,string key_value)
+nodeA* TreeAVL::insert(nodeA *p_nodeA,string key_value)
 {
-    if (p_node == nullptr)      ///Create the new node and return the address
+    if (p_nodeA == nullptr)      ///Create the new nodeA and return the address
     {
-        p_node = new node;
-        p_node->pleft = nullptr;
-        p_node->pright =nullptr;
-        p_node->value = key_value;
-        p_node->counter = 1;
-        p_node->balance_factor = 0;
-        return p_node;
+        p_nodeA = new nodeA;
+        p_nodeA->pleft = nullptr;
+        p_nodeA->pright =nullptr;
+        p_nodeA->value = key_value;
+        p_nodeA->counter = 1;
+        p_nodeA->balance_factor = 0;
+        return p_nodeA;
     }
-    if (key_value > p_node->value)
+    if (key_value > p_nodeA->value)
     {
-        p_node->pright = insert(p_node->pright, key_value);
+        p_nodeA->pright = insert(p_nodeA->pright, key_value);
 
     }
 
-    else if (key_value == p_node->value)
+    else if (key_value == p_nodeA->value)
     {
-        p_node->counter += 1;
+        p_nodeA->counter += 1;
 
-        return p_node;
+        return p_nodeA;
 
     }
     else
     {
-        p_node->pleft = insert(p_node->pleft, key_value);
+        p_nodeA->pleft = insert(p_nodeA->pleft, key_value);
 
     }
 
 
 
-    int bal = get_bf(p_node);
+    int bal = get_bf(p_nodeA);
 
 
     if (bal >1)         ///Initiates Check from the LEFT Subtree.
     {
-        if (key_value < p_node->pleft->value)
+        if (key_value < p_nodeA->pleft->value)
         {
-            p_node = ll_rotation(p_node);           //left-left rotation
+            p_nodeA = ll_rotation(p_nodeA);           //left-left rotation
         }
 
 
 
-        if (key_value > p_node->pleft->value)
+        if (key_value > p_nodeA->pleft->value)
         {
-            p_node = lr_rotation(p_node);           //left-right rotation
+            p_nodeA = lr_rotation(p_nodeA);           //left-right rotation
         }
 
     }
@@ -127,23 +127,23 @@ node* TreeAVL::insert(node *p_node,string key_value)
     if (bal < -1)       ///Initiates Check from the RIGHT Subtree.
     {
 
-        if (key_value < p_node->pright->value)
+        if (key_value < p_nodeA->pright->value)
         {
-            p_node = rl_rotation(p_node);       //right-left rotation
+            p_nodeA = rl_rotation(p_nodeA);       //right-left rotation
         }
 
 
-        if (key_value > p_node->pright->value)
+        if (key_value > p_nodeA->pright->value)
         {
-            p_node = rr_rotation(p_node);       //right-right rotation
+            p_nodeA = rr_rotation(p_nodeA);       //right-right rotation
 
         }
 
     }
 
-    fix_bf_for_all(p_node);         ///Correction of Balance Factor after Rotations.
+    fix_bf_for_all(p_nodeA);         ///Correction of Balance Factor after Rotations.
 
-    return p_node;
+    return p_nodeA;
 }
 
 ///-------------------------end of section----------------------------------------------
@@ -161,43 +161,43 @@ node* TreeAVL::insert(node *p_node,string key_value)
 
 //Sub Function         'Remove one child' for Delete Function
 //-----------------------------------------------------------
-node* TreeAVL::remove_one_child(node* p_node)
+nodeA* TreeAVL::remove_one_child(nodeA* p_nodeA)
 {
-    if(p_node->pright!=nullptr && p_node->pleft!=nullptr)
+    if(p_nodeA->pright!=nullptr && p_nodeA->pleft!=nullptr)
     {
          //cout<<"u fcking liar you said you had one child but you have two";
          return nullptr;
     }
 
 
-    if(p_node->pleft!= nullptr && p_node->pright==nullptr)
+    if(p_nodeA->pleft!= nullptr && p_nodeA->pright==nullptr)
     {
-        node * next;
-        next = p_node->pleft;
+        nodeA * next;
+        next = p_nodeA->pleft;
 
-        p_node->value = next->value;
-        p_node->counter = next->counter;
-        p_node->pleft = next->pleft;
-        p_node->pright = next->pright;
+        p_nodeA->value = next->value;
+        p_nodeA->counter = next->counter;
+        p_nodeA->pleft = next->pleft;
+        p_nodeA->pright = next->pright;
 
         //next->value = 5555;
-        delete p_node->pleft;
+        delete p_nodeA->pleft;
     }
 
 
-    if (p_node->pleft==nullptr && p_node->pright!=nullptr)
+    if (p_nodeA->pleft==nullptr && p_nodeA->pright!=nullptr)
     {
-        node * next;
-        next = p_node->pright;
+        nodeA * next;
+        next = p_nodeA->pright;
 
-        p_node->value = next->value;
-        p_node->counter = next->counter;
-        p_node->pleft = next->pleft;
-        p_node->pright = next->pright;
+        p_nodeA->value = next->value;
+        p_nodeA->counter = next->counter;
+        p_nodeA->pleft = next->pleft;
+        p_nodeA->pright = next->pright;
         delete next;
     }
 
-    return p_node;
+    return p_nodeA;
 }
 //----------------end of Sub Function---------------------------
 
@@ -206,62 +206,62 @@ node* TreeAVL::remove_one_child(node* p_node)
 //------------------Main Delete Function---------------------------------
 
 
-bool TreeAVL::delete_node(string key_value) //a non- recursive function
+bool TreeAVL::delete_nodeA(string key_value) //a non- recursive function
 {
-    node* p_delete_node;    //the node to be deleted
-    node *parent;
-    node* p_current;        //minimum node
+    nodeA* p_delete_nodeA;    //the nodeA to be deleted
+    nodeA *parent;
+    nodeA* p_current;        //minimum nodeA
 
-    p_delete_node= search(root, key_value);         //Spotting the node.
+    p_delete_nodeA= search(root, key_value);         //Spotting the nodeA.
 
-    if(!p_delete_node)           //If the node does not exist, return false.
+    if(!p_delete_nodeA)           //If the nodeA does not exist, return false.
         return false;
 
 
 
-    //CASE 1. p delete node has NO children.
-    if(p_delete_node->pleft==nullptr && p_delete_node->pright==nullptr)
+    //CASE 1. p delete nodeA has NO children.
+    if(p_delete_nodeA->pleft==nullptr && p_delete_nodeA->pright==nullptr)
     {
         //cout<<"I hate kids"<<endl;
-        if (p_delete_node == root)
+        if (p_delete_nodeA == root)
         {
-            delete p_delete_node;
+            delete p_delete_nodeA;
             root =nullptr;
         }
 
         else
         {
-            //cout<<endl<<"The node "<<p_delete_node->value<<" has NOO child"<<endl;
+            //cout<<endl<<"The nodeA "<<p_delete_nodeA->value<<" has NOO child"<<endl;
             parent = search_parent(key_value);
-            if (parent->pleft == p_delete_node)
+            if (parent->pleft == p_delete_nodeA)
                 parent->pleft = nullptr;
-            if (parent->pright == p_delete_node)
+            if (parent->pright == p_delete_nodeA)
                 parent->pright = nullptr;
-            delete p_delete_node;
+            delete p_delete_nodeA;
         }
 
     }
     else
     {
-        //CASE 2. p_delete_node has ONE child.
-        if((p_delete_node->pleft != nullptr && p_delete_node->pright == nullptr) || (p_delete_node->pleft == nullptr && p_delete_node->pright != nullptr))
+        //CASE 2. p_delete_nodeA has ONE child.
+        if((p_delete_nodeA->pleft != nullptr && p_delete_nodeA->pright == nullptr) || (p_delete_nodeA->pleft == nullptr && p_delete_nodeA->pright != nullptr))
             {
-                //cout<<endl<<"The node "<<p_delete_node->value<<" has one child"<<endl;
-                if (p_delete_node->pright == nullptr)
+                //cout<<endl<<"The nodeA "<<p_delete_nodeA->value<<" has one child"<<endl;
+                if (p_delete_nodeA->pright == nullptr)
                 {
                     //cout<<"NO RIGHT"<<endl;
                     //return false;
                 }
-                if (p_delete_node->pleft == nullptr)
+                if (p_delete_nodeA->pleft == nullptr)
                 {
                     //cout<<"NO LEFTTTTT"<<endl;
                     //return false;
                 }
-                if (p_delete_node == root)
+                if (p_delete_nodeA == root)
                 {
                     //cout<<"EIMAI GROOT"<<endl;
-                    node * previous_root = root;
-                    if (p_delete_node->pright!= nullptr && p_delete_node->pleft == nullptr)
+                    nodeA * previous_root = root;
+                    if (p_delete_nodeA->pright!= nullptr && p_delete_nodeA->pleft == nullptr)
                         root = root->pright;
                     else
                         root = root->pleft;
@@ -270,22 +270,22 @@ bool TreeAVL::delete_node(string key_value) //a non- recursive function
 
                 }
                 else
-                    remove_one_child(p_delete_node);
+                    remove_one_child(p_delete_nodeA);
 
             }
 
-        //CASE 3. p_delete_node has TWO children
-        else if(p_delete_node->pleft!=nullptr && p_delete_node->pright!=nullptr)
+        //CASE 3. p_delete_nodeA has TWO children
+        else if(p_delete_nodeA->pleft!=nullptr && p_delete_nodeA->pright!=nullptr)
         {
 
-            p_current= p_delete_node->pright;
+            p_current= p_delete_nodeA->pright;
 
             while(p_current->pleft!= nullptr)
                 p_current= p_current->pleft;
 
-            //will arrive at a minimum node at the right subtree
+            //will arrive at a minimum nodeA at the right subtree
 
-            //Copy the Value and Counter in the p_delete_node
+            //Copy the Value and Counter in the p_delete_nodeA
 
 
             if (p_current->pleft == nullptr && p_current->pright == nullptr) //Does not have children.
@@ -296,16 +296,16 @@ bool TreeAVL::delete_node(string key_value) //a non- recursive function
                 if (parent->pright == p_current)
                     parent->pright = nullptr;
 
-                p_delete_node->value = p_current->value;
-                p_delete_node->counter = p_current->counter;
+                p_delete_nodeA->value = p_current->value;
+                p_delete_nodeA->counter = p_current->counter;
 
                 delete p_current;
             }
             if (p_current->pright != nullptr && p_current->pleft == nullptr) //Does not have children to the right.
             {
 
-                p_delete_node->value = p_current->value;
-                p_delete_node->counter = p_current->counter;
+                p_delete_nodeA->value = p_current->value;
+                p_delete_nodeA->counter = p_current->counter;
 
                 remove_one_child(p_current);
 
@@ -315,44 +315,44 @@ bool TreeAVL::delete_node(string key_value) //a non- recursive function
     }
 
 
-    node *p_node = root;
+    nodeA *p_nodeA = root;
 
     //Check the balance of the TreeAVL
-    int bal = get_bf(p_node);
+    int bal = get_bf(p_nodeA);
 
 
 
     if (bal >1)                 //Initiates check to the left
     {
-        if (key_value < p_node->pleft->value)
+        if (key_value < p_nodeA->pleft->value)
         {
             //cout<<"LL !!"<<endl;
-            p_node = ll_rotation(p_node);
+            p_nodeA = ll_rotation(p_nodeA);
         }
-        if (key_value > p_node->pleft->value)
+        if (key_value > p_nodeA->pleft->value)
         {
             //cout<<"LR !!"<<endl;
-            p_node = lr_rotation(p_node);
+            p_nodeA = lr_rotation(p_nodeA);
         }
 
     }
     if (bal < -1)           //Initiates check to the right
     {
-        if (key_value < p_node->pright->value)
+        if (key_value < p_nodeA->pright->value)
         {
-            p_node = rl_rotation(p_node);
+            p_nodeA = rl_rotation(p_nodeA);
         }
 
 
-        if (key_value > p_node->pright->value)
+        if (key_value > p_nodeA->pright->value)
         {
-            p_node = rr_rotation(p_node);
+            p_nodeA = rr_rotation(p_nodeA);
 
         }
 
     }
 
-    //cout<<"BALANCE FACTOR : "<<p_node->balance_factor<<endl;
+    //cout<<"BALANCE FACTOR : "<<p_nodeA->balance_factor<<endl;
 
 
     fix_bf_for_all(root);
@@ -373,23 +373,23 @@ bool TreeAVL::delete_node(string key_value) //a non- recursive function
 ///------------------------------Section: Fix Balance Factor----------------------------------------
 
 
-int TreeAVL::get_bf(node* mynode)      //returns the balance factor of a node
+int TreeAVL::get_bf(nodeA* mynodeA)      //returns the balance factor of a nodeA
 {
     int lheight, rheight, bf;
 
-    lheight= height(mynode->pleft);
-    rheight= height(mynode->pright);
+    lheight= height(mynodeA->pleft);
+    rheight= height(mynodeA->pright);
 
     bf= lheight- rheight;               //  (max height left) - (max height right); ...[-1, 0, 1]... if it's BALANCED
 
-    mynode->balance_factor= bf;       //Updates the balance factor of (*this) node
+    mynodeA->balance_factor= bf;       //Updates the balance factor of (*this) nodeA
 
-    return mynode->balance_factor;
+    return mynodeA->balance_factor;
 }
 
 
 
-void TreeAVL::update_bf(node *p)        //UPDATES BALANCE FACTOR OF NODE
+void TreeAVL::update_bf(nodeA *p)        //UPDATES BALANCE FACTOR OF NODE
 {
     int lheight, rheight, bf;
 
@@ -398,11 +398,11 @@ void TreeAVL::update_bf(node *p)        //UPDATES BALANCE FACTOR OF NODE
 
     bf= lheight- rheight;               //   (max left) -   (max right); ...[-1, 0, 1]... if it is BALANCED
 
-    p->balance_factor= bf;       //Updates the balance factor of (*this) node
+    p->balance_factor= bf;       //Updates the balance factor of (*this) nodeA
 }
 
 
-void TreeAVL::fix_bf_for_all(node * p)  ///fixes the balance factor of all nodes
+void TreeAVL::fix_bf_for_all(nodeA * p)  ///fixes the balance factor of all nodeAs
 {
     if (p==nullptr)
         return;
@@ -414,14 +414,14 @@ void TreeAVL::fix_bf_for_all(node * p)  ///fixes the balance factor of all nodes
 }
 
 
-int TreeAVL::height(node* mynode)      //recursive function that returns HEIGHT (the MAX PATH), underneath a node (left or right).
+int TreeAVL::height(nodeA* mynodeA)      //recursive function that returns HEIGHT (the MAX PATH), underneath a nodeA (left or right).
 
 {
         //END CONDITION
-        if(mynode== nullptr)        ///If the node that we have arrived at is NULL or NON-existent, returns '0'.
+        if(mynodeA== nullptr)        ///If the nodeA that we have arrived at is NULL or NON-existent, returns '0'.
             return 0;
 
-        //if the node, is not empty then the function is being called recursively
+        //if the nodeA, is not empty then the function is being called recursively
         //either from the right or the left path
         //
         //
@@ -433,7 +433,7 @@ int TreeAVL::height(node* mynode)      //recursive function that returns HEIGHT 
         else
         {
 
-            return 1 + maxof2(height(mynode->pright), height(mynode->pleft));
+            return 1 + maxof2(height(mynodeA->pright), height(mynodeA->pleft));
         }
 
 }
@@ -470,9 +470,9 @@ int TreeAVL::maxof2(int a, int b)      //returns the max of two numbers
 
 //-----------------------------Section: ROTATIONS --------------------------------
 
-node* TreeAVL::rr_rotation(node *parent)            ///RIGHT RIGHT rotation
+nodeA* TreeAVL::rr_rotation(nodeA *parent)            ///RIGHT RIGHT rotation
 {
-    node *temp;
+    nodeA *temp;
     temp = parent->pright;
 
     parent->pright = temp->pleft;
@@ -483,9 +483,9 @@ node* TreeAVL::rr_rotation(node *parent)            ///RIGHT RIGHT rotation
 }
 
 
-node* TreeAVL::rl_rotation(node *parent)            ///RIGHT-LEFT rotation
+nodeA* TreeAVL::rl_rotation(nodeA *parent)            ///RIGHT-LEFT rotation
 {
-    node *temp;
+    nodeA *temp;
     temp = parent->pright;
 
     parent->pright = ll_rotation (temp);
@@ -495,9 +495,9 @@ node* TreeAVL::rl_rotation(node *parent)            ///RIGHT-LEFT rotation
 
 
 
-node* TreeAVL::ll_rotation(node *parent)            ///LEFT-LEFT rotation
+nodeA* TreeAVL::ll_rotation(nodeA *parent)            ///LEFT-LEFT rotation
 {
-    node *temp;
+    nodeA *temp;
     temp = parent->pleft;
 
     parent->pleft = temp->pright;
@@ -508,9 +508,9 @@ node* TreeAVL::ll_rotation(node *parent)            ///LEFT-LEFT rotation
 }
 
 
-node* TreeAVL::lr_rotation(node *parent)            ///LEFT-RIGHT rotation
+nodeA* TreeAVL::lr_rotation(nodeA *parent)            ///LEFT-RIGHT rotation
 {
-    node *temp;
+    nodeA *temp;
     temp = parent->pleft;
     parent->pleft = rr_rotation (temp);
     return ll_rotation (parent);
@@ -524,7 +524,7 @@ node* TreeAVL::lr_rotation(node *parent)            ///LEFT-RIGHT rotation
 
 ///---------------------Section:  Debugging Information------------------------------------
 
-void TreeAVL::debugInfo(node *p)
+void TreeAVL::debugInfo(nodeA *p)
 {
     if (p==NULL) return;
     debugInfo(p->pleft);
@@ -545,7 +545,7 @@ void TreeAVL::debugInfo(node *p)
 
 }
 
-void TreeAVL::display(node *ptr, int level)
+void TreeAVL::display(nodeA *ptr, int level)
 {
     int i;
     if (ptr!=NULL)
@@ -575,7 +575,7 @@ void TreeAVL::preorder()
 {
     preorder(root);
 }
-void TreeAVL::preorder(node *p)
+void TreeAVL::preorder(nodeA *p)
 {
     if (p==NULL)
         return;
@@ -596,7 +596,7 @@ void TreeAVL::inorder()
 {
     inorder(root);
 }
-void TreeAVL::inorder(node *p)
+void TreeAVL::inorder(nodeA *p)
 {
     if (p==NULL)
         return;
@@ -616,7 +616,7 @@ void TreeAVL::postorder()
 {
     postorder(root);
 }
-void TreeAVL::postorder(node *p)
+void TreeAVL::postorder(nodeA *p)
 {
     if (p==nullptr)
         return;
@@ -642,18 +642,18 @@ void TreeAVL::postorder(node *p)
 
 
 
-//-------------------------------Auxiliary Function Search parent node--------------------------------
-node* TreeAVL::search_parent(string key)
+//-------------------------------Auxiliary Function Search parent nodeA--------------------------------
+nodeA* TreeAVL::search_parent(string key)
 {
-    node *parent = nullptr;
-    node *current = root;
+    nodeA *parent = nullptr;
+    nodeA *current = root;
 	// traverse the tree and search for the key
 	while (current != nullptr && current->value != key)
 	{
-		// update parent node as current node
+		// update parent nodeA as current nodeA
 		parent = current;
 
-		// if given key is less than the current node, go to left subtree
+		// if given key is less than the current nodeA, go to left subtree
 		// else go to right subtree
 		if (key < current->value)
 			current = current->pleft;

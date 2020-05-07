@@ -1,8 +1,7 @@
 #include "HashTable.h"
-
 HashTable::HashTable(int s)
 {
-    Array = new node[s];
+    Array = new nodeH[s];
     size = s;
     //ctor
 }
@@ -70,12 +69,13 @@ void HashTable::DebugInfo()
         if (Array[i].counter != 0)
         cout<<"Value at ["<<i<<"] '"<<Array[i].value<<"'  Counter : "<<Array[i].counter<<" Hash Code : "<<hash_algo(Array[i].value)<<endl;
 }
+
 int HashTable::search(string s)
 {
     unsigned long int pos = hash_algo(s)%size;
     if (Array[pos].value == s)
     {
-        cout<<"I found the '"<<s<<"' original HASH position :"<<pos<<endl;
+        //cout<<"I found the '"<<s<<"' original HASH position :"<<pos<<endl;
         return Array[pos].counter; ///Found
 
     }

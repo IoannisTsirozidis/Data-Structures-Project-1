@@ -7,12 +7,12 @@
 #include <cstring>
 #include <chrono>
 #include <random>
-
+#include <cstdio>
 #include "BinarySearchTree.h"
 #include "TreeAVL.h"
 #include "HashTable.h"
 
-#define NUM_OF_WORDS 10
+#define NUM_OF_WORDS 10000
 using namespace std::chrono;
 
 using namespace std;
@@ -30,7 +30,7 @@ int main()
     HashTable Hash(NUM_OF_WORDS*2);
 
 
-    string temp_arr[NUM_OF_WORDS];
+    string temp_arr[NUM_OF_WORDS+1];
 
     int count_words = 0;
 
@@ -53,12 +53,12 @@ int main()
                     {
                         to_lower_str(temp_word);
                         //cout<<temp_word<<endl; /// This is the insert part function
-                        if (rand()%2 && count_words<=NUM_OF_WORDS )
+                        if (rand()%2 && count_words<NUM_OF_WORDS )
                         {
                             BTS.insert(temp_word);
                             AVL.insert(temp_word);
                             Hash.insert(temp_word);
-                            //temp_arr[count_words] = "python";
+                            temp_arr[count_words] = temp_word;
                             count_words++;
                         }
                         temp_word.erase();
@@ -66,21 +66,58 @@ int main()
                 }
         }
     }
-/*
+    //freopen("output.txt","w",stdout);
+
+    auto start = chrono::high_resolution_clock::now();
+    auto end = chrono::high_resolution_clock::now();              /// High resolution clock to count time elapsed
+    ios_base::sync_with_stdio(false);                            /// Don't count the time interval of stdio, example cout.
+
+    int times_appeard_BTS,times_appeard_AVL,times_appeard_Hash; /// Just variables to keep the time a word appeared in every.
+    double time_BTS,time_AVL,time_Hash;                        /// Another variable to keep the time it took to find each word.
+    double avg_BTS = 0, avg_AVL=0, avg_Hash=0;
     for (int i = 0; i<count_words; i++)
     {
         cout<<"-------------------------------------------------"<<endl<<endl;
         cout<<"Searching the word '"<<temp_arr[i]<<"'."<<endl<<endl;
-        cout<<"in Binary Search Tree\n     Appeared "<<BTS.search(temp_arr[i])<<" time(s)"<<endl<<endl;
-        cout<<"in AVL Tree          \n     Appeared "<<AVL.search(temp_arr[i])<<" time(s)"<<endl<<endl;
-        cout<<"in Hash Table        \n     Appeared "<<Hash.search(temp_arr[i])<<" time(s)"<<endl<<endl;
+
+        start = chrono::high_resolution_clock::now();                                   /// Starting the timer.
+        times_appeard_BTS = BTS.search(temp_arr[i]);                                   /// Finding the word.
+        end = chrono::high_resolution_clock::now();                                   /// Stopping the timer.
+        time_BTS = chrono::duration_cast<chrono::nanoseconds>(end - start).count();  /// Calculating the time it took and saving the result.
+        time_BTS *= 1e-9;
+        avg_BTS+= time_BTS;
+
+        start = chrono::high_resolution_clock::now();                                   /// Starting the timer.
+        times_appeard_AVL = AVL.search(temp_arr[i]);                                   /// Finding the word.
+        end = chrono::high_resolution_clock::now();                                   /// Stopping the timer.
+        time_AVL = chrono::duration_cast<chrono::nanoseconds>(end - start).count();  /// Calculating the time it took and saving the result.
+        time_AVL *= 1e-9;
+        avg_AVL+=time_AVL;
+
+        start = chrono::high_resolution_clock::now();                                   /// Starting the timer.
+        times_appeard_Hash = Hash.search(temp_arr[i]);                                 /// Finding the word.
+        end = chrono::high_resolution_clock::now();                                   /// Stopping the timer.
+        time_Hash = chrono::duration_cast<chrono::nanoseconds>(end - start).count(); /// Calculating the time it took and saving the result.
+        time_Hash *= 1e-9;
+        avg_Hash+=time_Hash;
+
+
+
+
+        cout<<"in Binary Search Tree\n     Appeared "<<times_appeard_BTS<<" time(s), took "<<fixed<<time_BTS<<" sec"<<endl<<endl;
+        cout<<"in AVL Tree          \n     Appeared "<<times_appeard_AVL<<" time(s), took "<<fixed<<time_AVL<<" sec"<<endl<<endl;
+        cout<<"in Hash Table        \n     Appeared "<<times_appeard_Hash<<" time(s), took "<<fixed<<time_Hash<<" sec"<<endl<<endl;
         cout<<"-------------------------------------------------"<<endl<<endl;
 
 
 
 
     }
-*/
+    cout<<"------------------   STATS   --------------------"<<endl<<endl;
+    cout<<" Average search time in BTS   :"<<avg_BTS/count_words<<" sec"<<endl<<endl;
+    cout<<" Average search time in AVL   :"<<avg_AVL/count_words<<" sec"<<endl<<endl;
+    cout<<" Average search time in Hash  :"<<avg_Hash/count_words<<" sec"<<endl<<endl;
+
 
     return 0;
 

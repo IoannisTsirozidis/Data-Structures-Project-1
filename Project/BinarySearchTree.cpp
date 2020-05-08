@@ -28,6 +28,7 @@ node* BinarySearchTree::insert(node *p_node,string key_value)
     if (p_node == nullptr)
     {
         p_node = new node;
+        check_p_null_BTS(p_node);
         p_node->pleft = nullptr;
         p_node->pright =nullptr;
         p_node->value = key_value;
@@ -411,5 +412,13 @@ int BinarySearchTree::size(node* node)
         return 0;
     else
         return(size(node->pleft) + 1 + size(node->pright));
+}
+void check_p_null_BTS(void *p)
+{
+    if (!p)
+    {
+        cout<<"MEMORY ALLOCATION FAILED in BTS\n Exiting..."<<endl;
+        exit(-1);
+    }
 }
 

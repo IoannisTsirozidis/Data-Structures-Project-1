@@ -29,5 +29,5 @@ class HashTable
         unsigned long int hash_algo(string);
 
 };
-
+void check_p_null_Hash(void * );
 #endif // HASHTABLE_H

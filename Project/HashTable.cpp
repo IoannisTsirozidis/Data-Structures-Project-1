@@ -2,6 +2,7 @@
 HashTable::HashTable(int s)
 {
     Array = new nodeH[s];
+    check_p_null_Hash(Array);
     size = s;
     //ctor
 }
@@ -96,4 +97,12 @@ int HashTable::search(string s)
     }
     //cout<<"NOT FOUND"<<endl;
     return 0;
+}
+void check_p_null_Hash(void *p)
+{
+    if (!p)
+    {
+        cout<<"MEMORY ALLOCATION FAILED in Hash\n Exiting..."<<endl;
+        exit(-1);
+    }
 }

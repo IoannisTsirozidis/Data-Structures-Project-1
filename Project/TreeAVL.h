@@ -117,4 +117,8 @@ class TreeAVL
 
 };
 
+void check_p_null_AVL(void * );
+
+
+
 #endif // TREEAVL_H

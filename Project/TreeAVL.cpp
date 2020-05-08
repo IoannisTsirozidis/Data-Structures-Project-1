@@ -76,6 +76,9 @@ nodeA* TreeAVL::insert(nodeA *p_nodeA,string key_value)
     if (p_nodeA == nullptr)      ///Create the new nodeA and return the address
     {
         p_nodeA = new nodeA;
+
+        check_p_null_AVL(p_nodeA);
+
         p_nodeA->pleft = nullptr;
         p_nodeA->pright =nullptr;
         p_nodeA->value = key_value;
@@ -666,3 +669,12 @@ nodeA* TreeAVL::search_parent(string key)
 //----------------------end of Search function--------------------
 
 
+
+void check_p_null_AVL(void *p)
+{
+    if (!p)
+    {
+        cout<<"MEMORY ALLOCATION FAILED in TreeAVL\n Exiting..."<<endl;
+        exit(-1);
+    }
+}

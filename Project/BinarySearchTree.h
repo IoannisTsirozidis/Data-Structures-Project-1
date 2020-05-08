@@ -77,5 +77,5 @@ class BinarySearchTree
 
 
 };
-
+void check_p_null_BTS(void * );
 #endif // BINARYSEARCHTREE_H

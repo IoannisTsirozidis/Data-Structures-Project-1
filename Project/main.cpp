@@ -1,19 +1,15 @@
 #include <iostream>
 #include <fstream>
-#include <stdlib.h>
 #include <string>
-#include <algorithm>
-#include <ctype.h>
-#include <cstring>
 #include <chrono>
 #include <random>
-#include <cstdio>
 #include "BinarySearchTree.h"
 #include "TreeAVL.h"
 #include "HashTable.h"
 
-#define NUM_OF_WORDS 10000
-using namespace std::chrono;
+#define NUM_OF_WORDS 1000
+
+
 
 using namespace std;
 
@@ -25,7 +21,7 @@ void to_lower_str(string &data)
 int main()
 {
     bool show_stats_only;
-    cout<<" Do you want to see the counter and search time for ALL words? : (0/1):";
+    cout<<" Do you want to see the counter and search time for ALL words? (0/1) : ";
     cin>>show_stats_only;
     cout<<endl;
 
@@ -46,7 +42,7 @@ int main()
 
     srand (time(NULL));
     int k; //count = 0;
-    ifstream file("input_file2.txt");
+    ifstream file("input_file.txt");
     string linestr;
     string temp_word;
     while (getline(file, linestr))
@@ -63,24 +59,22 @@ int main()
                     {
                         to_lower_str(temp_word);
                         //cout<<temp_word<<endl; /// This is the insert part function
-                        if (count_words<NUM_OF_WORDS ) //rand()%2 &&
+                        if (count_words<NUM_OF_WORDS && rand()%2)
                         {
                             BTS.insert(temp_word);
-                            //AVL.insert(temp_word);
+                            AVL.insert(temp_word);
                             Hash.insert(temp_word);
 
-                            if (Hash.search(temp_word)) /// If the word is already in don't append it to the temp_arr
-                            {
-                                temp_arr[count_words] = temp_word;
-                                count_words++;
-                            }
+                            temp_arr[count_words] = temp_word;
+                            count_words++;
+
                         }
                         temp_word.erase();
                     }
                 }
         }
     }
-    //freopen("output.txt","w",stdout);
+    file.close();
 
     auto start = chrono::high_resolution_clock::now();
     auto end = chrono::high_resolution_clock::now();              /// High resolution clock to count time elapsed
@@ -91,8 +85,7 @@ int main()
     double avg_BTS = 0, avg_AVL=0, avg_Hash=0, avg_array = 0;
     for (int i = 0; i<count_words; i++)
     {
-        //cout<<"-------------------------------------------------"<<endl<<endl;
-        //cout<<"Searching the word '"<<temp_arr[i]<<"'."<<endl<<endl;
+
         ///-------- BTS Insertion -------------------
         start = chrono::high_resolution_clock::now();                                   /// Starting the timer.
         times_appeard_BTS = BTS.search(temp_arr[i]);                                   /// Finding the word.
@@ -102,14 +95,14 @@ int main()
         avg_BTS+= time_BTS;
 
         ///-------- AVL Insertion ------------------- ///Currently the AVL ROTATIONS HAVE BUGS SO I HAVE DISABLED IT FOR NOW
-        /*
+
         start = chrono::high_resolution_clock::now();                                   /// Starting the timer.
         times_appeard_AVL = AVL.search(temp_arr[i]);                                   /// Finding the word.
         end = chrono::high_resolution_clock::now();                                   /// Stopping the timer.
         time_AVL = chrono::duration_cast<chrono::nanoseconds>(end - start).count();  /// Calculating the time it took and saving the result.
         time_AVL *= 1e-9;
         avg_AVL+=time_AVL;
-        */
+
         ///-------- Hash Insertion ----------------
         start = chrono::high_resolution_clock::now();                                   /// Starting the timer.
         times_appeard_Hash = Hash.search(temp_arr[i]);                                 /// Finding the word.
@@ -121,27 +114,25 @@ int main()
         ///-------- Simulate Linear Search ----------
         start = chrono::high_resolution_clock::now();
         int j = 0;
-        while (temp_arr[i] != temp_arr[i])
+        while (temp_arr[i] != temp_arr[j])
         {
             j++;
         }
         end = chrono::high_resolution_clock::now();
         time_array = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
         time_array *= 1e-9;
-        avg_array+= time_BTS;
-
-
+        avg_array+= time_array;
 
 
         if(show_stats_only)
         {
-
-        cout<<"in Binary Search Tree\n     Appeared "<<times_appeard_BTS<<" time(s), took "<<fixed<<time_BTS<<" sec"<<endl<<endl;
-        cout<<"in AVL Tree          \n     Appeared "<<times_appeard_AVL<<" time(s), took "<<fixed<<time_AVL<<" sec"<<endl<<endl;
-        cout<<"in Hash Table        \n     Appeared "<<times_appeard_Hash<<" time(s), took "<<fixed<<time_Hash<<" sec"<<endl<<endl;
-        cout<<"-------------------------------------------------"<<endl<<endl;
+            cout<<" -------------------------------------------------"<<endl<<endl;
+            cout<<" Searching the word '"<<temp_arr[i]<<"'."<<endl<<endl;
+            cout<<" in Binary Search Tree\n     Appeared "<<times_appeard_BTS<<" time(s), took "<<fixed<<time_BTS<<" sec"<<endl<<endl;
+            cout<<" in AVL Tree          \n     Appeared "<<times_appeard_AVL<<" time(s), took "<<fixed<<time_AVL<<" sec"<<endl<<endl;
+            cout<<" in Hash Table        \n     Appeared "<<times_appeard_Hash<<" time(s), took "<<fixed<<time_Hash<<" sec"<<endl<<endl;
+            cout<<" -------------------------------------------------"<<endl<<endl;
         }
-
 
 
     }

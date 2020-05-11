@@ -114,14 +114,14 @@ nodeA* TreeAVL::insert(nodeA *p_nodeA,string key_value)
     {
         if (key_value < p_nodeA->pleft->value)
         {
-            p_nodeA = ll_rotation(p_nodeA);           //left-left rotation
+            return ll_rotation(p_nodeA);           //left-left rotation
         }
 
 
 
         if (key_value > p_nodeA->pleft->value)
         {
-            p_nodeA = lr_rotation(p_nodeA);           //left-right rotation
+            return lr_rotation(p_nodeA);           //left-right rotation
         }
 
     }
@@ -132,13 +132,13 @@ nodeA* TreeAVL::insert(nodeA *p_nodeA,string key_value)
 
         if (key_value < p_nodeA->pright->value)
         {
-            p_nodeA = rl_rotation(p_nodeA);       //right-left rotation
+            return rl_rotation(p_nodeA);       //right-left rotation
         }
 
 
         if (key_value > p_nodeA->pright->value)
         {
-            p_nodeA = rr_rotation(p_nodeA);       //right-right rotation
+            return rr_rotation(p_nodeA);       //right-right rotation
 
         }
 
@@ -471,7 +471,7 @@ int TreeAVL::maxof2(int a, int b)      //returns the max of two numbers
 
 
 
-//-----------------------------Section: ROTATIONS --------------------------------
+///-----------------------------Section: ROTATIONS --------------------------------
 
 nodeA* TreeAVL::rr_rotation(nodeA *parent)            ///RIGHT RIGHT rotation
 {
@@ -481,6 +481,9 @@ nodeA* TreeAVL::rr_rotation(nodeA *parent)            ///RIGHT RIGHT rotation
     parent->pright = temp->pleft;
 
     temp->pleft = parent;
+
+    fix_bf_for_all(parent);
+
 
     return temp;
 }
@@ -492,6 +495,9 @@ nodeA* TreeAVL::rl_rotation(nodeA *parent)            ///RIGHT-LEFT rotation
     temp = parent->pright;
 
     parent->pright = ll_rotation (temp);
+
+
+
 
     return rr_rotation (parent);
 }
@@ -507,6 +513,8 @@ nodeA* TreeAVL::ll_rotation(nodeA *parent)            ///LEFT-LEFT rotation
 
     temp->pright = parent;
 
+    fix_bf_for_all(parent);
+
     return temp;
 }
 
@@ -516,6 +524,7 @@ nodeA* TreeAVL::lr_rotation(nodeA *parent)            ///LEFT-RIGHT rotation
     nodeA *temp;
     temp = parent->pleft;
     parent->pleft = rr_rotation (temp);
+
     return ll_rotation (parent);
 }
 //----------------------------------end of section-----------------------------------------------

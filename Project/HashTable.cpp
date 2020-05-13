@@ -11,7 +11,7 @@ HashTable::~HashTable()
     delete [] Array;
     //dtor
 }
-unsigned long int HashTable::hash_algo(string s) ///Returns the hash code of the code
+unsigned long int HashTable::hash_algo(string s) ///Calculates and Returns the hash code of the string
 {
     unsigned long int code=s.length();
     unsigned long int p=10;
@@ -29,7 +29,7 @@ unsigned long int HashTable::hash_algo(string s) ///Returns the hash code of the
                 p*=100;
             }
     }
-    return (code)%4294967296;
+    return (code)%4294967296; /// limit the code to 10 digits MAX
 }
 void HashTable::insert(string s)
 {
@@ -37,18 +37,18 @@ void HashTable::insert(string s)
 
 
 
-    if (Array[pos].counter != 0 )///Not Empty Spot Detected
+    if (Array[pos].counter != 0 )    /// Occupied cell detected
     {
 
-        if (Array[pos].value == s) ///Found the Same String
+        if (Array[pos].value == s) ///Found the Same String in the cell
             Array[pos].counter++;
 
-        else                      ///Found Different String
+        else                      ///Found Different String in the cell
         {
             int i = 1;
             int final_pos = pos;
 
-            while (Array[final_pos].counter != 0 && i<size*2) ///Quadratic Probing
+            while (Array[final_pos].counter != 0 && i<size*2) /// Quadratic Probing to find the next cell
             {
                 final_pos=(pos+(i*i))%size;
                 i++;
@@ -58,7 +58,7 @@ void HashTable::insert(string s)
         }
     }
 
-    else ///This Spot is EMPTY
+    else ///This cell is EMPTY
     {
         Array[pos].value = s;
         Array[pos].counter = 1 ;
@@ -76,8 +76,7 @@ int HashTable::search(string s)
     unsigned long int pos = hash_algo(s)%size;
     if (Array[pos].value == s)
     {
-        //cout<<"I found the '"<<s<<"' original HASH position :"<<pos<<endl;
-        return Array[pos].counter; ///Found
+        return Array[pos].counter; ///Found in the cell
 
     }
 
@@ -85,17 +84,14 @@ int HashTable::search(string s)
     int i = 1;
     int final_pos = pos;
 
-    while (Array[final_pos].value != s  && i<size*2) ///Quadratic Probing
+    while (Array[final_pos].value != s  && i<size*2) ///Quadratic Probing to find the next cell
     {
         final_pos=(pos+(i*i))%size;
         i++;
     }
+
     if (Array[final_pos].value == s)
-    {
-        //cout<<"I found the '"<<s<<"' NOT original HASH position :"<<final_pos<<endl;
         return Array[final_pos].counter;
-    }
-    //cout<<"NOT FOUND"<<endl;
     return 0;
 }
 void check_p_null_Hash(void *p)

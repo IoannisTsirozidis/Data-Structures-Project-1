@@ -34,14 +34,8 @@ int TreeAVL::search(string key_value)
     temp = search(root, key_value);
 
     if(temp==nullptr)
-        {
-            //cout<<"Not Found"<<endl;
-            return 0;
-        }
-
-    //cout<<"Appeared "<<temp->counter<<" time(s)"<<endl;
+        return 0;
     return temp->counter;
-
 }
 
 //Background Search function
@@ -73,22 +67,23 @@ nodeA* TreeAVL::search(nodeA* p_nodeA, string key_value)
 
 nodeA* TreeAVL::insert(nodeA *p_nodeA,string key_value)
 {
-    if (p_nodeA == nullptr)      ///Create the new nodeA and return the address
+    if (p_nodeA == nullptr)       /// The node doesn't exist
     {
-        p_nodeA = new nodeA;
+        p_nodeA = new nodeA;      /// Dynamically allocating memory
 
-        check_p_null_AVL(p_nodeA);
+        check_p_null_AVL(p_nodeA);/// Checks if the allocation was successfully done
 
-        p_nodeA->pleft = nullptr;
-        p_nodeA->pright =nullptr;
+        p_nodeA->pleft = nullptr;  /// Set left and right pointer to null
+        p_nodeA->pright =nullptr; /// Set value of the node to the key_value
         p_nodeA->value = key_value;
-        p_nodeA->counter = 1;
+        p_nodeA->counter = 1;        /// Initializing the counter to one
         p_nodeA->balance_factor = 0;
         return p_nodeA;
     }
+                                                 /// If the node exist
     if (key_value > p_nodeA->value)
     {
-        p_nodeA->pright = insert(p_nodeA->pright, key_value);
+        p_nodeA->pright = insert(p_nodeA->pright, key_value); ///Recursive call of the insert
 
     }
 
@@ -113,16 +108,10 @@ nodeA* TreeAVL::insert(nodeA *p_nodeA,string key_value)
     if (bal >1)         ///Initiates Check from the LEFT Subtree.
     {
         if (key_value < p_nodeA->pleft->value)
-        {
             return ll_rotation(p_nodeA);           //left-left rotation
-        }
-
-
 
         if (key_value > p_nodeA->pleft->value)
-        {
             return lr_rotation(p_nodeA);           //left-right rotation
-        }
 
     }
 
@@ -131,16 +120,11 @@ nodeA* TreeAVL::insert(nodeA *p_nodeA,string key_value)
     {
 
         if (key_value < p_nodeA->pright->value)
-        {
             return rl_rotation(p_nodeA);       //right-left rotation
-        }
-
 
         if (key_value > p_nodeA->pright->value)
-        {
             return rr_rotation(p_nodeA);       //right-right rotation
 
-        }
 
     }
 
@@ -166,14 +150,11 @@ nodeA* TreeAVL::insert(nodeA *p_nodeA,string key_value)
 //-----------------------------------------------------------
 nodeA* TreeAVL::remove_one_child(nodeA* p_nodeA)
 {
-    if(p_nodeA->pright!=nullptr && p_nodeA->pleft!=nullptr)
-    {
-         //cout<<"u fcking liar you said you had one child but you have two";
+    if(p_nodeA->pright!=nullptr && p_nodeA->pleft!=nullptr)// You liar, you said you had one child but you have two
          return nullptr;
-    }
 
 
-    if(p_nodeA->pleft!= nullptr && p_nodeA->pright==nullptr)
+    if(p_nodeA->pleft!= nullptr && p_nodeA->pright==nullptr) // Same sub-function as in the BST
     {
         nodeA * next;
         next = p_nodeA->pleft;
@@ -183,7 +164,6 @@ nodeA* TreeAVL::remove_one_child(nodeA* p_nodeA)
         p_nodeA->pleft = next->pleft;
         p_nodeA->pright = next->pright;
 
-        //next->value = 5555;
         delete p_nodeA->pleft;
     }
 
@@ -222,11 +202,11 @@ bool TreeAVL::delete_nodeA(string key_value) //a non- recursive function
 
 
 
-    //CASE 1. p delete nodeA has NO children.
+    /// CASE 1. p_delete_nodeA has NO children.
     if(p_delete_nodeA->pleft==nullptr && p_delete_nodeA->pright==nullptr)
     {
-        //cout<<"I hate kids"<<endl;
-        if (p_delete_nodeA == root)
+
+        if (p_delete_nodeA == root)//"I hate kids"
         {
             delete p_delete_nodeA;
             root =nullptr;
@@ -234,7 +214,7 @@ bool TreeAVL::delete_nodeA(string key_value) //a non- recursive function
 
         else
         {
-            //cout<<endl<<"The nodeA "<<p_delete_nodeA->value<<" has NOO child"<<endl;
+
             parent = search_parent(key_value);
             if (parent->pleft == p_delete_nodeA)
                 parent->pleft = nullptr;
@@ -246,23 +226,11 @@ bool TreeAVL::delete_nodeA(string key_value) //a non- recursive function
     }
     else
     {
-        //CASE 2. p_delete_nodeA has ONE child.
+        /// CASE 2. p_delete_nodeA has ONE child.
         if((p_delete_nodeA->pleft != nullptr && p_delete_nodeA->pright == nullptr) || (p_delete_nodeA->pleft == nullptr && p_delete_nodeA->pright != nullptr))
             {
-                //cout<<endl<<"The nodeA "<<p_delete_nodeA->value<<" has one child"<<endl;
-                if (p_delete_nodeA->pright == nullptr)
+                if (p_delete_nodeA == root) //I am Groot
                 {
-                    //cout<<"NO RIGHT"<<endl;
-                    //return false;
-                }
-                if (p_delete_nodeA->pleft == nullptr)
-                {
-                    //cout<<"NO LEFTTTTT"<<endl;
-                    //return false;
-                }
-                if (p_delete_nodeA == root)
-                {
-                    //cout<<"EIMAI GROOT"<<endl;
                     nodeA * previous_root = root;
                     if (p_delete_nodeA->pright!= nullptr && p_delete_nodeA->pleft == nullptr)
                         root = root->pright;
@@ -277,21 +245,21 @@ bool TreeAVL::delete_nodeA(string key_value) //a non- recursive function
 
             }
 
-        //CASE 3. p_delete_nodeA has TWO children
+        /// CASE 3. p_delete_nodeA has TWO children
         else if(p_delete_nodeA->pleft!=nullptr && p_delete_nodeA->pright!=nullptr)
         {
 
             p_current= p_delete_nodeA->pright;
 
-            while(p_current->pleft!= nullptr)
-                p_current= p_current->pleft;
-
-            //will arrive at a minimum nodeA at the right subtree
-
-            //Copy the Value and Counter in the p_delete_nodeA
+            while(p_current->pleft!= nullptr) // Will arrive at a minimum nodeA at the right subtree. (Find MIN)
+                p_current= p_current->pleft;  // Copy the Value and Counter in the p_delete_nodeA
 
 
-            if (p_current->pleft == nullptr && p_current->pright == nullptr) //Does not have children.
+
+
+
+
+            if (p_current->pleft == nullptr && p_current->pright == nullptr) //Does not have children. Hates them too
             {
                 parent = search_parent(p_current->value);
                 if (parent->pleft == p_current)
@@ -304,14 +272,12 @@ bool TreeAVL::delete_nodeA(string key_value) //a non- recursive function
 
                 delete p_current;
             }
-            if (p_current->pright != nullptr && p_current->pleft == nullptr) //Does not have children to the right.
+            if (p_current->pright != nullptr && p_current->pleft == nullptr) //Has a child to the right
             {
-
                 p_delete_nodeA->value = p_current->value;
                 p_delete_nodeA->counter = p_current->counter;
 
                 remove_one_child(p_current);
-
             }
 
         }
@@ -324,39 +290,23 @@ bool TreeAVL::delete_nodeA(string key_value) //a non- recursive function
     int bal = get_bf(p_nodeA);
 
 
-
-    if (bal >1)                 //Initiates check to the left
+    if (bal >1)                 ///Initiates check to the left
     {
-        if (key_value < p_nodeA->pleft->value)
-        {
-            //cout<<"LL !!"<<endl;
+        if (key_value < p_nodeA->pleft->value) // Left Left Rotation
             p_nodeA = ll_rotation(p_nodeA);
-        }
-        if (key_value > p_nodeA->pleft->value)
-        {
-            //cout<<"LR !!"<<endl;
+
+        if (key_value > p_nodeA->pleft->value) // Left Right Rotation
             p_nodeA = lr_rotation(p_nodeA);
-        }
 
     }
-    if (bal < -1)           //Initiates check to the right
+    if (bal < -1)              ///Initiates check to the right
     {
         if (key_value < p_nodeA->pright->value)
-        {
             p_nodeA = rl_rotation(p_nodeA);
-        }
-
 
         if (key_value > p_nodeA->pright->value)
-        {
             p_nodeA = rr_rotation(p_nodeA);
-
-        }
-
     }
-
-    //cout<<"BALANCE FACTOR : "<<p_nodeA->balance_factor<<endl;
-
 
     fix_bf_for_all(root);
     return true;
@@ -434,16 +384,14 @@ int TreeAVL::height(nodeA* mynodeA)      //recursive function that returns HEIGH
         //                1
         //
         else
-        {
-
             return 1 + maxof2(height(mynodeA->pright), height(mynodeA->pleft));
-        }
 
 }
 
 
 int TreeAVL::maxof2(int a, int b)      //returns the max of two numbers
 {
+                                     //return (a>=b?a:b);
     if(a>=b)
         return a;
     else
@@ -473,7 +421,7 @@ int TreeAVL::maxof2(int a, int b)      //returns the max of two numbers
 
 ///-----------------------------Section: ROTATIONS --------------------------------
 
-nodeA* TreeAVL::rr_rotation(nodeA *parent)            ///RIGHT RIGHT rotation
+nodeA* TreeAVL::rr_rotation(nodeA *parent)            /// RIGHT RIGHT rotation
 {
     nodeA *temp;
     temp = parent->pright;

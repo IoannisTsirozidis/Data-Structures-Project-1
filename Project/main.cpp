@@ -7,7 +7,11 @@
 #include "TreeAVL.h"
 #include "HashTable.h"
 
+
+/// HERE THE NUMBER OF WORDS CAN BE ADJUSTED  <------
+
 #define NUM_OF_WORDS 1000
+
 
 
 
@@ -20,12 +24,7 @@ void to_lower_str(string &data)
 
 int main()
 {
-    bool show_stats_only;
-    cout<<" Do you want to see the counter and search time for ALL words? (0/1) : ";
-    cin>>show_stats_only;
-    cout<<endl;
-
-    BinarySearchTree BTS;
+    BinarySearchTree BTS; ///Create object
     TreeAVL AVL;
     HashTable Hash(NUM_OF_WORDS*2);
 
@@ -42,37 +41,51 @@ int main()
 
     srand (time(NULL));
     int k; //count = 0;
-    ifstream file("input_file.txt");
+    ifstream file("input_file.txt");                        /// <----  HERE THE FILENAME CAN BE DECLARED
+
+    if (!file.is_open())
+    {
+        cout<<"File NOT found!"<<endl;
+        exit(-1);
+    }
+
     string linestr;
     string temp_word;
-    while (getline(file, linestr))
+    while (count_words<NUM_OF_WORDS)
     {
-        k = linestr.length();
-        for (int i=0; i<=k; i++)
+
+        while (getline(file, linestr))
         {
-            if (isalpha(linestr[i]))
-                temp_word+=linestr[i];
-            else
-                if (temp_word.length() != 0)
-                {
-                    if (!isalpha(linestr[i]) || i ==k  )
+            k = linestr.length();
+            for (int i=0; i<=k; i++)
+            {
+                if (isalpha(linestr[i]))
+                    temp_word+=linestr[i];
+                else
+                    if (temp_word.length() != 0)
                     {
-                        to_lower_str(temp_word);
-                        //cout<<temp_word<<endl; /// This is the insert part function
-                        if (count_words<NUM_OF_WORDS && rand()%2)
+                        if (!isalpha(linestr[i]) || i ==k  )
                         {
-                            BTS.insert(temp_word);
-                            AVL.insert(temp_word);
-                            Hash.insert(temp_word);
+                            to_lower_str(temp_word);
+                            //cout<<temp_word<<endl; /// This is the insert part function
+                            if (count_words<NUM_OF_WORDS && rand()%2)
+                            {
+                                BTS.insert(temp_word);
+                                AVL.insert(temp_word);
+                                Hash.insert(temp_word);
 
-                            temp_arr[count_words] = temp_word;
-                            count_words++;
+                                temp_arr[count_words] = temp_word;
+                                count_words++;
 
+
+                            }
+                            temp_word.erase();
                         }
-                        temp_word.erase();
                     }
-                }
+            }
         }
+        file.clear();
+        file.seekg (0, ios::beg);
     }
     file.close();
 
@@ -124,25 +137,26 @@ int main()
         avg_array+= time_array;
 
 
-        if(show_stats_only)
-        {
-            cout<<" -------------------------------------------------"<<endl<<endl;
-            cout<<" Searching the word '"<<temp_arr[i]<<"'."<<endl<<endl;
-            cout<<" in Binary Search Tree\n     Appeared "<<times_appeard_BTS<<" time(s), took "<<fixed<<time_BTS<<" sec"<<endl<<endl;
-            cout<<" in AVL Tree          \n     Appeared "<<times_appeard_AVL<<" time(s), took "<<fixed<<time_AVL<<" sec"<<endl<<endl;
-            cout<<" in Hash Table        \n     Appeared "<<times_appeard_Hash<<" time(s), took "<<fixed<<time_Hash<<" sec"<<endl<<endl;
-            cout<<" -------------------------------------------------"<<endl<<endl;
-        }
+
+        //cout<<" -------------------------------------------------"<<endl<<endl;
+        cout<<" The word '"<<temp_arr[i]<<"'."<<endl<<endl;
+        cout<<" in Binary Search Tree\n     Appeared "<<times_appeard_BTS<<" time(s), took "<<fixed<<time_BTS<<" sec"<<endl<<endl;
+        cout<<" in AVL Tree          \n     Appeared "<<times_appeard_AVL<<" time(s), took "<<fixed<<time_AVL<<" sec"<<endl<<endl;
+        cout<<" in Hash Table        \n     Appeared "<<times_appeard_Hash<<" time(s), took "<<fixed<<time_Hash<<" sec"<<endl<<endl;
+        //cout<<" -------------------------------------------------"
+        cout<<endl<<endl<<endl<<endl<<endl<<endl;
+
 
 
     }
-    cout<<"------------------   STATS   --------------------"<<endl<<endl;
+    cout<<endl<<endl<<endl;
+    cout<<" ------------------   STATS   --------------------"<<endl<<endl;
     cout<<" Total number of words        :"<<count_words<<endl<<endl;
     cout<<" Average search time in BTS   :"<<fixed<<avg_BTS/count_words<<" sec"<<endl<<endl;
     cout<<" Average search time in AVL   :"<<fixed<<avg_AVL/count_words<<" sec"<<endl<<endl;
     cout<<" Average search time in Hash  :"<<fixed<<avg_Hash/count_words<<" sec"<<endl<<endl;
     cout<<" Average linear search time   :"<<fixed<<avg_array/count_words<<" sec"<<endl<<endl;
-
+    cout<<endl<<endl;
 
     return 0;
 

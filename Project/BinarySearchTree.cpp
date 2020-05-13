@@ -20,18 +20,19 @@ void BinarySearchTree::insert(string key_value)
 
 node* BinarySearchTree::insert(node *p_node,string key_value)
 {
-    if (p_node == nullptr)
+    if (p_node == nullptr)                                      /// The node doesn't exist
     {
-        p_node = new node;
-        check_p_null_BTS(p_node);
-        p_node->pleft = nullptr;
+        p_node = new node;                                      /// Dynamically allocating memory
+        check_p_null_BTS(p_node);                               /// Checks if the allocation was successfully done
+        p_node->pleft = nullptr;                                /// Set left and right pointer to null
         p_node->pright =nullptr;
-        p_node->value = key_value;
-        p_node->counter = 1;
+        p_node->value = key_value;                              /// Set value of the node to the key_value
+        p_node->counter = 1;                                    /// Initializing the counter to one
         return p_node;
     }
-    if (key_value > p_node->value)
-        p_node->pright = insert(p_node->pright, key_value);
+                                                                /// If the node exist - is occupied
+    if (key_value > p_node->value)                              /// Check if the key_value is smaller or greater from the current node
+        p_node->pright = insert(p_node->pright, key_value);     /// Recursive call of the insert
     else if (key_value == p_node->value)
         p_node->counter += 1;
     else
@@ -48,12 +49,12 @@ node* BinarySearchTree::insert(node *p_node,string key_value)
 
 
 //--------------------PREORDER-------------------------
-void BinarySearchTree::preorder()
+void BinarySearchTree::preorder()                               /// Call from main
 {
     preorder(root);
 }
 
-void BinarySearchTree::preorder(node *p)
+void BinarySearchTree::preorder(node *p)                       /// Recursive call
 {
     if (p==NULL) return;cout<<p->value<<", ";preorder(p->pleft);preorder(p->pright);
 }
@@ -65,11 +66,11 @@ void BinarySearchTree::preorder(node *p)
 
 
 //----------------INORDER------------------------------
-void BinarySearchTree::inorder()
+void BinarySearchTree::inorder()                               /// Call from main
 {
     inorder(root);
 }
-void BinarySearchTree::inorder(node *p)
+void BinarySearchTree::inorder(node *p)                       /// Recursive call
 {
     if (p==NULL) return;
     inorder(p->pleft);
@@ -86,11 +87,11 @@ void BinarySearchTree::inorder(node *p)
 
 
 //---------------POSTORDER----------------------------
-void BinarySearchTree::postorder()
+void BinarySearchTree::postorder()                          /// Call from main
 {
     postorder(root);
 }
-void BinarySearchTree::postorder(node *p)
+void BinarySearchTree::postorder(node *p)                   /// Recursive call
 {
     if (p==NULL) return;postorder(p->pleft);postorder(p->pright);cout<<p->value<<", ";
 }
@@ -102,7 +103,7 @@ void BinarySearchTree::postorder(node *p)
 
 
 //-------------Function Search-------------------------------------------
-int BinarySearchTree::search(string key_value)
+int BinarySearchTree::search(string key_value)                  /// (Main) Returns the number of occurrences of the key_value
 {
     node* temp;
 
@@ -118,7 +119,7 @@ int BinarySearchTree::search(string key_value)
         cout<<"<"<<temp->value<<">"<<" found ";
     */
 }
-node* BinarySearchTree::search(node* p_node, string key_value)
+node* BinarySearchTree::search(node* p_node, string key_value)  /// (Private) Returns the key_value node
 {
         if(p_node== nullptr)
             return nullptr;
@@ -181,18 +182,18 @@ void BinarySearchTree::printDebug()
 
 //-----------------------------------------------Function Delete-----------------------------------------------
 
-bool BinarySearchTree::delete_node(string key_value)
+bool BinarySearchTree::delete_node(string key_value) /// Non recursive function
 {
-    node* p_delete_node;                                    //the node to be deleted
+    node* p_delete_node;                                    /// the node to be deleted
     node *parent;
-    node* p_current;                                        ///minimum node
+    node* p_current;                                        /// minimum node
 
-    p_delete_node= search(root, key_value);                 //Locating the node
+    p_delete_node= search(root, key_value);                 /// Locating the node
 
-    if(!p_delete_node)                                      //If it does not exist, returns false
+    if(!p_delete_node)                                      /// If it does not exist, returns false
         return false;
 
-    //CASE 1. p_delete_node Does not have Children
+    /// CASE 1. p_delete_node Does not have Children
     if(p_delete_node->pleft==nullptr && p_delete_node->pright==nullptr)
     {
 
@@ -216,18 +217,10 @@ bool BinarySearchTree::delete_node(string key_value)
     }
     else
     {
-        //CASE 2. p_delete_node HAS ONE CHILD
+        /// CASE 2. p_delete_node HAS ONE CHILD
         if((p_delete_node->pleft != nullptr && p_delete_node->pright == nullptr) || (p_delete_node->pleft == nullptr && p_delete_node->pright != nullptr))
             {
 
-                if (p_delete_node->pright == nullptr)
-                {
-
-                }
-                if (p_delete_node->pleft == nullptr)
-                {
-
-                }
                 if (p_delete_node == root)
                 {
 
@@ -245,7 +238,7 @@ bool BinarySearchTree::delete_node(string key_value)
 
             }
 
-        //CASE 3. p_delete_node HAS TWO CHILDREN
+        /// CASE 3. p_delete_node HAS TWO CHILDREN
         else if(p_delete_node->pleft!=nullptr && p_delete_node->pright!=nullptr)
         {
 
@@ -254,12 +247,12 @@ bool BinarySearchTree::delete_node(string key_value)
             while(p_current->pleft!= nullptr)
                 p_current= p_current->pleft;
 
-                                                                                    //Will reach a minimum p_current on the right- subtree
+                                                            /// Will reach a minimum p_current on the right- subtree
 
-                                                                                    //Copying the "Value" and "Counter" at the p_delete_node
+                                                            /// Copying the "Value" and "Counter" of the p_delete_node
 
 
-            if (p_current->pleft == nullptr && p_current->pright == nullptr)    //Does not have Children
+            if (p_current->pleft == nullptr && p_current->pright == nullptr)    /// Does not have Children
             {
                 parent = search_parent(p_current->value);
                 if (parent->pleft == p_current)
@@ -272,7 +265,7 @@ bool BinarySearchTree::delete_node(string key_value)
 
                 delete p_current;
             }
-            if (p_current->pright != nullptr && p_current->pleft == nullptr)    //Does have a child one the right- size
+            if (p_current->pright != nullptr && p_current->pleft == nullptr)    /// Does have a child one the right- side
             {
 
                 p_delete_node->value = p_current->value;
@@ -302,34 +295,34 @@ bool BinarySearchTree::delete_node(string key_value)
 //-------------------------Auxiliary Function Remove_One_Child-----------------------
 node* BinarySearchTree::remove_one_child(node* p_node)
 {
-    if(p_node->pright!=nullptr && p_node->pleft!=nullptr)
+    if(p_node->pright!=nullptr && p_node->pleft!=nullptr) /// The node has two child
     {
          return nullptr;
     }
 
-    if(p_node->pleft!= nullptr && p_node->pright==nullptr)
+    if(p_node->pleft!= nullptr && p_node->pright==nullptr) /// The node has one child to the left
     {
-        node * next;
-        next = p_node->pleft;
+        node * next;                                       // Create a temp pointer of type node
+        next = p_node->pleft;                              // Assign the p_node left child to next
 
-        p_node->value = next->value;
-        p_node->counter = next->counter;
-        p_node->pleft = next->pleft;
-        p_node->pright = next->pright;
+        p_node->value = next->value;                       // Copy to the p_node the value of the left child(next)
+        p_node->counter = next->counter;                   // Copy to the p_node the counter of the left child(next)
+        p_node->pleft = next->pleft;                       // Copy to the p_node the pleft of the left child(next)
+        p_node->pright = next->pright;                     // Copy to the p_node the pright of the left child(next)
 
         delete p_node->pleft;
 
     }
 
-    if (p_node->pleft==nullptr && p_node->pright!=nullptr)
+    if (p_node->pleft==nullptr && p_node->pright!=nullptr) /// The node has one child to the right
     {
-        node * next;
-        next = p_node->pright;
+        node * next;                                       // Create a temp pointer of type node
+        next = p_node->pright;                             // Assign the p_node right child to next
 
-        p_node->value = next->value;
-        p_node->counter = next->counter;
-        p_node->pleft = next->pleft;
-        p_node->pright = next->pright;
+        p_node->value = next->value;                       // Copy to the p_node the value of the right child(next)
+        p_node->counter = next->counter;                   // Copy to the p_node the counter of the right child(next)
+        p_node->pleft = next->pleft;                       // Copy to the p_node the pleft of the left child(next)
+        p_node->pright = next->pright;                     // Copy to the p_node the pright of the left child(next)
 
 
         delete next;
@@ -354,19 +347,14 @@ node* BinarySearchTree::remove_one_child(node* p_node)
 
 
 //--------------------------Auxiliary Function Search_Parent----------------------
-node* BinarySearchTree::search_parent(string key)
+node* BinarySearchTree::search_parent(string key)           // Recursive
 {
     node *parent = nullptr;
     node *current = root;
-	// traverse the tree and search for the key
 	while (current != nullptr && current->value != key)
 	{
-		// update parent node as current node
 		parent = current;
-
-		// if given key is less than the current node, go to left subtree
-		// else go to right subtree
-		if (key < current->value)
+        if (key < current->value)
 			current = current->pleft;
 		else
 			current = current->pright;
@@ -445,7 +433,6 @@ void BinarySearchTree::MENU()
                     cout<<" '"<<input<<"' has been deleted \n";
                 else
                     cout<<" '"<<input<<"' not found \n";
-                    //Sleep(1500);
 
                 break;
             case 4:
@@ -479,8 +466,6 @@ cout << " sec " << endl;
 
 
 
-
-
 //-----------Check Functions---------------
 
 int BinarySearchTree::size(node* node)
@@ -490,7 +475,7 @@ int BinarySearchTree::size(node* node)
     else
         return(size(node->pleft) + 1 + size(node->pright));
 }
-void check_p_null_BTS(void *p)
+void check_p_null_BTS(void *p)  ///Check if memory was allocated correctly
 {
     if (!p)
     {

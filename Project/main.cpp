@@ -10,7 +10,7 @@
 
 /// HERE THE NUMBER OF WORDS CAN BE ADJUSTED  <------
 
-#define NUM_OF_WORDS 1000
+#define NUM_OF_WORDS 100
 
 
 
@@ -41,7 +41,7 @@ int main()
 
     srand (time(NULL));
     int k; //count = 0;
-    ifstream file("input_file.txt");                        /// <----  HERE THE FILENAME CAN BE DECLARED
+    ifstream file("input_file.txt");                         /// <----  HERE THE FILENAME CAN BE DECLARED
 
     if (!file.is_open())
     {
@@ -51,6 +51,33 @@ int main()
 
     string linestr;
     string temp_word;
+    while (getline(file, linestr))
+        {
+            k = linestr.length();
+            for (int i=0; i<=k; i++)
+            {
+                if (isalpha(linestr[i]))
+                    temp_word+=linestr[i];
+                else
+                    if (temp_word.length() != 0)
+                    {
+                        if (!isalpha(linestr[i]) || i ==k  )
+                        {
+                            to_lower_str(temp_word);
+
+                            BTS.insert(temp_word);
+                            AVL.insert(temp_word);
+                            Hash.insert(temp_word);
+
+                        }
+                        temp_word.erase();
+
+                    }
+            }
+        }
+
+    file.clear();
+    file.seekg (0, ios::beg);
     while (count_words<NUM_OF_WORDS)
     {
 
@@ -70,22 +97,18 @@ int main()
                             //cout<<temp_word<<endl; /// This is the insert part function
                             if (count_words<NUM_OF_WORDS && rand()%2)
                             {
-                                BTS.insert(temp_word);
-                                AVL.insert(temp_word);
-                                Hash.insert(temp_word);
-
                                 temp_arr[count_words] = temp_word;
                                 count_words++;
-
-
                             }
                             temp_word.erase();
                         }
                     }
             }
+
         }
         file.clear();
-        file.seekg (0, ios::beg);
+            file.seekg (0, ios::beg);
+
     }
     file.close();
 

@@ -1,13 +1,5 @@
 #include "BinarySearchTree.h"
-/*
-struct node
-{
-    int counter;
-    string value;
-    node* pleft;
-    node* pright;
-};
-*/
+
 
 BinarySearchTree::BinarySearchTree()        //Default Constructor
 {
@@ -17,6 +9,9 @@ BinarySearchTree::~BinarySearchTree()       //Default Destructor
 {
 
 }
+
+
+//---------------Function Insert-----------------------------
 
 void BinarySearchTree::insert(string key_value)
 {
@@ -45,17 +40,31 @@ node* BinarySearchTree::insert(node *p_node,string key_value)
     return p_node;
 }
 
+//---------------------end of Function------------------------------
+
+
+
+
+
+
+//--------------------PREORDER-------------------------
 void BinarySearchTree::preorder()
 {
     preorder(root);
 }
 
-
 void BinarySearchTree::preorder(node *p)
 {
     if (p==NULL) return;cout<<p->value<<", ";preorder(p->pleft);preorder(p->pright);
 }
+//-----------------------------------------------------
 
+
+
+
+
+
+//----------------INORDER------------------------------
 void BinarySearchTree::inorder()
 {
     inorder(root);
@@ -67,7 +76,16 @@ void BinarySearchTree::inorder(node *p)
     cout<<p->value<<", ";
     inorder(p->pright);
 }
+//-----------------------------------------------------
 
+
+
+
+
+
+
+
+//---------------POSTORDER----------------------------
 void BinarySearchTree::postorder()
 {
     postorder(root);
@@ -76,7 +94,14 @@ void BinarySearchTree::postorder(node *p)
 {
     if (p==NULL) return;postorder(p->pleft);postorder(p->pright);cout<<p->value<<", ";
 }
+//----------------------------------------------------
 
+
+
+
+
+
+//-------------Function Search-------------------------------------------
 int BinarySearchTree::search(string key_value)
 {
     node* temp;
@@ -107,9 +132,17 @@ node* BinarySearchTree::search(node* p_node, string key_value)
         else//if(key_value < p_node->value)
             return search(p_node->pleft, key_value);
 }
+//---------------------------end of function--------------------------------
 
 
 
+
+
+
+
+
+
+//----------------------------Function DebugInfo------------------------
 void BinarySearchTree::debugInfo(node *p)
 {
     if (p==NULL) return;
@@ -136,23 +169,33 @@ void BinarySearchTree::printDebug()
     debugInfo(root);
 
 }
+//----------------------------end of function--------------------------
 
 
-bool BinarySearchTree::delete_node(string key_value) ///TO KANAME XORIS ANADROMI
+
+
+
+
+
+
+
+//-----------------------------------------------Function Delete-----------------------------------------------
+
+bool BinarySearchTree::delete_node(string key_value)
 {
-    node* p_delete_node;    //O KOMVOS POU THELOUME NA DIAGRAPSOUME
+    node* p_delete_node;                                    //the node to be deleted
     node *parent;
-    node* p_current;        ///O ELAXISTOS KOMVOS
+    node* p_current;                                        ///minimum node
 
-    p_delete_node= search(root, key_value);         //VRISKOUME TON KOMVO
+    p_delete_node= search(root, key_value);                 //Locating the node
 
-    if(!p_delete_node)           //AN DEN YPARXEI RETURN FALSE
+    if(!p_delete_node)                                      //If it does not exist, returns false
         return false;
 
-    //CASE 1. p_delete_node DEN EXEI PAIDIA
+    //CASE 1. p_delete_node Does not have Children
     if(p_delete_node->pleft==nullptr && p_delete_node->pright==nullptr)
     {
-        cout<<"I hate kids"<<endl;
+
         if (p_delete_node == root)
         {
             delete p_delete_node;
@@ -161,7 +204,7 @@ bool BinarySearchTree::delete_node(string key_value) ///TO KANAME XORIS ANADROMI
 
         else
         {
-            cout<<endl<<"The node "<<p_delete_node->value<<" has NOO child"<<endl;
+
             parent = search_parent(key_value);
             if (parent->pleft == p_delete_node)
                 parent->pleft = nullptr;
@@ -173,23 +216,21 @@ bool BinarySearchTree::delete_node(string key_value) ///TO KANAME XORIS ANADROMI
     }
     else
     {
-        //CASE 2. p_delete_node EXEI ENA PAIDI
+        //CASE 2. p_delete_node HAS ONE CHILD
         if((p_delete_node->pleft != nullptr && p_delete_node->pright == nullptr) || (p_delete_node->pleft == nullptr && p_delete_node->pright != nullptr))
             {
-                cout<<endl<<"The node "<<p_delete_node->value<<" has one child"<<endl;
+
                 if (p_delete_node->pright == nullptr)
                 {
-                    cout<<"NO RIGHT"<<endl;
-                    //return false;
+
                 }
                 if (p_delete_node->pleft == nullptr)
                 {
-                    cout<<"NO LEFTTTTT"<<endl;
-                    //return false;
+
                 }
                 if (p_delete_node == root)
                 {
-                    cout<<"EIMAI GROOT"<<endl;
+
                     node * previous_root = root;
                     if (p_delete_node->pright!= nullptr && p_delete_node->pleft == nullptr)
                         root = root->pright;
@@ -204,22 +245,21 @@ bool BinarySearchTree::delete_node(string key_value) ///TO KANAME XORIS ANADROMI
 
             }
 
-        //CASE 3. p_delete_node EXEI DYO PAIDIA
+        //CASE 3. p_delete_node HAS TWO CHILDREN
         else if(p_delete_node->pleft!=nullptr && p_delete_node->pright!=nullptr)
         {
-            //cout<<endl<<"The node "<<p_delete_node->value<<" has two child"<<endl;
 
             p_current= p_delete_node->pright;
 
             while(p_current->pleft!= nullptr)
                 p_current= p_current->pleft;
 
-            ///tha ftasoume se ena min p_current sto dexi ypodentro.
+                                                                                    //Will reach a minimum p_current on the right- subtree
 
-            ///ANTIGRAFH tou VALUE kai tou Counter min STO p_delete_node
+                                                                                    //Copying the "Value" and "Counter" at the p_delete_node
 
 
-            if (p_current->pleft == nullptr && p_current->pright == nullptr) //DEN EXEI PAIDIA
+            if (p_current->pleft == nullptr && p_current->pright == nullptr)    //Does not have Children
             {
                 parent = search_parent(p_current->value);
                 if (parent->pleft == p_current)
@@ -232,7 +272,7 @@ bool BinarySearchTree::delete_node(string key_value) ///TO KANAME XORIS ANADROMI
 
                 delete p_current;
             }
-            if (p_current->pright != nullptr && p_current->pleft == nullptr) //EXEI ENA PAIDI STA DEXIA
+            if (p_current->pright != nullptr && p_current->pleft == nullptr)    //Does have a child one the right- size
             {
 
                 p_delete_node->value = p_current->value;
@@ -247,14 +287,23 @@ bool BinarySearchTree::delete_node(string key_value) ///TO KANAME XORIS ANADROMI
     return true;
 
 }
+//-------------------------------------------end of function-------------------------------------------------------------
 
 
 
+
+
+
+
+
+
+
+
+//-------------------------Auxiliary Function Remove_One_Child-----------------------
 node* BinarySearchTree::remove_one_child(node* p_node)
 {
     if(p_node->pright!=nullptr && p_node->pleft!=nullptr)
     {
-         cout<<"u fcking liar you said you had one child but you have two";
          return nullptr;
     }
 
@@ -268,7 +317,6 @@ node* BinarySearchTree::remove_one_child(node* p_node)
         p_node->pleft = next->pleft;
         p_node->pright = next->pright;
 
-        //next->value = 5555;
         delete p_node->pleft;
 
     }
@@ -291,8 +339,21 @@ node* BinarySearchTree::remove_one_child(node* p_node)
 
     return p_node;
 }
+//----------------------end of function-------------------------------------
 
 
+
+
+
+
+
+
+
+
+
+
+
+//--------------------------Auxiliary Function Search_Parent----------------------
 node* BinarySearchTree::search_parent(string key)
 {
     node *parent = nullptr;
@@ -312,7 +373,14 @@ node* BinarySearchTree::search_parent(string key)
 	}
 	return parent;
 }
+//---------------------------end of function----------------------------------
 
+
+
+
+
+
+//---------------------------------main MENU---------------------------------
 
 void BinarySearchTree::MENU()
 {
@@ -406,6 +474,15 @@ cout << " sec " << endl;
 
     }
 }
+
+//----------------------------------------end of Menu------------------------
+
+
+
+
+
+//-----------Check Functions---------------
+
 int BinarySearchTree::size(node* node)
 {
     if (node == NULL)

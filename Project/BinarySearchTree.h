@@ -26,6 +26,13 @@ class BinarySearchTree
 
         //FUNCTIONS
 
+
+        unsigned int get_number_of_nodes() const
+        {
+            return number_of_nodes;
+        }
+
+
         void insert(string);
 
         int search(string);
@@ -49,6 +56,8 @@ class BinarySearchTree
 
     private:
         node* root = nullptr;
+
+        unsigned int number_of_nodes; // Keeps the current number of nodes in the Tree
 
 
         node * insert(node *, string);

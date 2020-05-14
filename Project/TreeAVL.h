@@ -21,11 +21,15 @@ class TreeAVL
         TreeAVL();
         virtual ~TreeAVL();
 
-
+        unsigned int get_number_of_nodes() const
+        {
+            return number_of_nodes;
+        }
 
         void insert(string key)                // Insert function, for main.
         {
             root = insert(root, key );
+            number_of_nodes+=1;
         }
 
 
@@ -67,7 +71,8 @@ class TreeAVL
 
     private:    ///In private there are the background functions.
 
-        nodeA* root = nullptr;           //Private nodeA* root.
+        nodeA* root = nullptr;           // Private nodeA* root.
+        unsigned int number_of_nodes;             // Keeps the current number of nodes in the Tree
 
 
 

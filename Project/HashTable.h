@@ -20,9 +20,15 @@ class HashTable
         void insert(string);
         int search(string);
         void DebugInfo();
+
+        unsigned int get_number_of_items()
+        {
+            return number_of_items;
+        }
     protected:
 
     private:
+        unsigned int number_of_items = 0;
         nodeH * Array;
         int size;
 

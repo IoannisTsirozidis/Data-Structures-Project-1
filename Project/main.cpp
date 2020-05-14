@@ -10,7 +10,7 @@
 
 /// HERE THE NUMBER OF WORDS CAN BE ADJUSTED  <------
 
-#define NUM_OF_WORDS 100
+#define NUM_OF_WORDS 50
 
 
 
@@ -26,7 +26,7 @@ int main()
 {
     BinarySearchTree BTS; ///Create object
     TreeAVL AVL;
-    HashTable Hash(NUM_OF_WORDS*2);
+    HashTable Hash(385416*2);
 
 
     string *temp_arr = new string [NUM_OF_WORDS];
@@ -34,55 +34,59 @@ int main()
     {
         cout<<"MEM ALLOCATION FOR SEARCH ARRAY FAILED!\nExiting...";
         exit(-1);
-
-
     }
     int count_words = 0;
 
     srand (time(NULL));
     int k; //count = 0;
-    ifstream file("input_file.txt");                         /// <----  HERE THE FILENAME CAN BE DECLARED
+    string filename = "input_file.txt";        /// <----  HERE THE FILENAME CAN BE DECLARED
 
+
+    ifstream file(filename);
     if (!file.is_open())
     {
-        cout<<"File NOT found!"<<endl;
+        cout<<"File NOT found!...Exiting"<<endl;
         exit(-1);
     }
 
     string linestr;
     string temp_word;
     while (getline(file, linestr))
+    {
+        k = linestr.length();
+        for (int i=0; i<=k; i++)
         {
-            k = linestr.length();
-            for (int i=0; i<=k; i++)
-            {
-                if (isalpha(linestr[i]))
-                    temp_word+=linestr[i];
-                else
-                    if (temp_word.length() != 0)
+            if (isalpha(linestr[i]))
+                temp_word+=linestr[i];
+            else
+                if (temp_word.length() != 0)
+                {
+                    if (!isalpha(linestr[i]) || i ==k  )
                     {
-                        if (!isalpha(linestr[i]) || i ==k  )
-                        {
-                            to_lower_str(temp_word);
+                        to_lower_str(temp_word);
 
-                            BTS.insert(temp_word);
-                            AVL.insert(temp_word);
-                            Hash.insert(temp_word);
-
-                        }
-                        temp_word.erase();
+                        //BTS.insert(temp_word);
+                        AVL.insert(temp_word);
+                        //Hash.insert(temp_word);
 
                     }
-            }
-        }
+                    temp_word.erase();
 
+                }
+        }
+    }
+    cout<<"FINITO\n";
+    cout<<"BTS: "<<BTS.get_number_of_nodes()<<endl;
+    cout<<"AVL: "<<AVL.get_number_of_nodes()<<endl;
+    cout<<"HASH: "<<Hash.get_number_of_items()<<endl;
     file.clear();
     file.seekg (0, ios::beg);
     while (count_words<NUM_OF_WORDS)
     {
 
-        while (getline(file, linestr))
+        while (getline(file, linestr) && count_words<NUM_OF_WORDS )
         {
+
             k = linestr.length();
             for (int i=0; i<=k; i++)
             {
@@ -95,11 +99,17 @@ int main()
                         {
                             to_lower_str(temp_word);
                             //cout<<temp_word<<endl; /// This is the insert part function
-                            if (count_words<NUM_OF_WORDS && rand()%2)
+                            if (count_words<NUM_OF_WORDS)
                             {
-                                temp_arr[count_words] = temp_word;
-                                count_words++;
+                                if (rand()%2)
+                                {
+
+                                    temp_arr[count_words] = temp_word;
+                                    count_words++;
+                                }
                             }
+                            else
+                                break;
                             temp_word.erase();
                         }
                     }
@@ -107,7 +117,7 @@ int main()
 
         }
         file.clear();
-            file.seekg (0, ios::beg);
+        file.seekg (0, ios::beg);
 
     }
     file.close();

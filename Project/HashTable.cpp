@@ -4,6 +4,7 @@ HashTable::HashTable(int s)
     Array = new nodeH[s];
     check_p_null_Hash(Array);
     size = s;
+    number_of_items = 0;
     //ctor
 }
 HashTable::~HashTable()
@@ -63,6 +64,7 @@ void HashTable::insert(string s)
         Array[pos].value = s;
         Array[pos].counter = 1 ;
     }
+    number_of_items += 1;
 }
 void HashTable::DebugInfo()
 {

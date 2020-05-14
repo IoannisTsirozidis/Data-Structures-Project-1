@@ -16,6 +16,7 @@ BinarySearchTree::~BinarySearchTree()       //Default Destructor
 void BinarySearchTree::insert(string key_value)
 {
     root = insert(root,key_value);
+    number_of_nodes +=1;
 }
 
 node* BinarySearchTree::insert(node *p_node,string key_value)
@@ -277,6 +278,7 @@ bool BinarySearchTree::delete_node(string key_value) /// Non recursive function
 
         }
     }
+    number_of_nodes -=1;
     return true;
 
 }

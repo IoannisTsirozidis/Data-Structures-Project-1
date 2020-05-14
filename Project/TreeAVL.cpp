@@ -11,6 +11,7 @@ TreeAVL::TreeAVL()      //Default Constructor
 {
     //ctor
     root = nullptr;
+    number_of_nodes = 0;
 }
 
 TreeAVL::~TreeAVL()     //Default Destructor
@@ -71,7 +72,7 @@ nodeA* TreeAVL::insert(nodeA *p_nodeA,string key_value)
     {
         p_nodeA = new nodeA;      /// Dynamically allocating memory
 
-        check_p_null_AVL(p_nodeA);/// Checks if the allocation was successfully done
+        //check_p_null_AVL(p_nodeA);/// Checks if the allocation was successfully done
 
         p_nodeA->pleft = nullptr;  /// Set left and right pointer to null
         p_nodeA->pright =nullptr; /// Set value of the node to the key_value
@@ -309,6 +310,7 @@ bool TreeAVL::delete_nodeA(string key_value) //a non- recursive function
     }
 
     fix_bf_for_all(root);
+    number_of_nodes =-1;
     return true;
 
 }

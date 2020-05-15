@@ -9,9 +9,7 @@
 #include <random>
 #include <cstdio>
 
-#include "TreeAVL.h"
-
-
+#include "AVLGeeks.h"
 #define NUM_OF_WORDS 2
 using namespace std::chrono;
 
@@ -21,16 +19,11 @@ void to_lower_str(string &data)
 {
     transform(data.begin(), data.end(), data.begin(),[](unsigned char c){return tolower(c);} );
 }
-
 int main()
 {
-    bool show_stats_only;
-    cout<<" Do you want to see the counter and search time for ALL words? : (0/1):";
-    cin>>show_stats_only;
-    cout<<endl;
+    Node *root = NULL;
 
 
-    TreeAVL AVL;
 
 
 
@@ -40,11 +33,8 @@ int main()
         cout<<"MEM ALLOCATION FOR SEARCH ARRAY FAILED!\nExiting...";
         exit(-1);
 
-
     }
-    int count_words = 0;
-
-    srand (time(NULL));
+    int count = 0;
     int k; //count = 0;
     ifstream file("input_file.txt");
     string linestr;
@@ -63,21 +53,20 @@ int main()
                     {
                         to_lower_str(temp_word);
                         //cout<<temp_word<<endl; /// This is the insert part function
-                        if (count_words<NUM_OF_WORDS ) //rand()%2 &&
-                        {
-                            cout<<temp_word<<endl;
-
-                            //AVL.insert(temp_word);
+                         //rand()%2 &&
 
 
+                        root = insert(root, 10);
+                        //AVL.insert(temp_word);
+                        count++;
 
-
-                        }
                         temp_word.erase();
                     }
                 }
         }
     }
+    cout<<count;
+
     //freopen("output.txt","w",stdout);
 
 

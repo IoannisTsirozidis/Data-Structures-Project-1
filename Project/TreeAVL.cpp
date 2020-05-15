@@ -80,7 +80,7 @@ node* TreeAVL::insert(node *p_node,string key_value)
         p_node->pright =nullptr;
         p_node->value = key_value;
         p_node->counter = 1;
-        p_node->balance_factor = 0;
+        p_node->height = 1;
         return p_node;
     }
     if (key_value > p_node->value)
@@ -140,8 +140,6 @@ node* TreeAVL::insert(node *p_node,string key_value)
         }
 
     }
-
-    fix_bf_for_all(p_node);         ///Correction of Balance Factor after Rotations.
 
     return p_node;
 }
@@ -355,7 +353,7 @@ bool TreeAVL::delete_node(string key_value) //a non- recursive function
     //cout<<"BALANCE FACTOR : "<<p_node->balance_factor<<endl;
 
 
-    fix_bf_for_all(root);
+
     return true;
 
 }
@@ -371,72 +369,20 @@ bool TreeAVL::delete_node(string key_value) //a non- recursive function
 
 
 ///------------------------------Section: Fix Balance Factor----------------------------------------
-
-
-int TreeAVL::get_bf(node* mynode)      //returns the balance factor of a node
+int TreeAVLheight(node *N)
 {
-    int lheight, rheight, bf;
-
-    lheight= height(mynode->pleft);
-    rheight= height(mynode->pright);
-
-    bf= lheight- rheight;               //  (max height left) - (max height right); ...[-1, 0, 1]... if it's BALANCED
-
-    mynode->balance_factor= bf;       //Updates the balance factor of (*this) node
-
-    return mynode->balance_factor;
+	if (N == NULL)
+		return 0;
+	return N->height;
 }
 
-
-
-void TreeAVL::update_bf(node *p)        //UPDATES BALANCE FACTOR OF NODE
+int TreeAVL::get_bf(node* p_node)      //returns the balance factor of a node
 {
-    int lheight, rheight, bf;
-
-    lheight= height(p->pleft);
-    rheight= height(p->pright);
-
-    bf= lheight- rheight;               //   (max left) -   (max right); ...[-1, 0, 1]... if it is BALANCED
-
-    p->balance_factor= bf;       //Updates the balance factor of (*this) node
+    if (p_node == NULL)
+        return 0;
+    return height(p_node->pleft) - height(p_node->pright);
 }
 
-
-void TreeAVL::fix_bf_for_all(node * p)  ///fixes the balance factor of all nodes
-{
-    if (p==nullptr)
-        return;
-
-    fix_bf_for_all(p->pleft);
-    fix_bf_for_all(p->pright);
-    update_bf(p);
-
-}
-
-
-int TreeAVL::height(node* mynode)      //recursive function that returns HEIGHT (the MAX PATH), underneath a node (left or right).
-
-{
-        //END CONDITION
-        if(mynode== nullptr)        ///If the node that we have arrived at is NULL or NON-existent, returns '0'.
-            return 0;
-
-        //if the node, is not empty then the function is being called recursively
-        //either from the right or the left path
-        //
-        //
-        //
-        //                  13
-        //             3          56
-        //                1
-        //
-        else
-        {
-
-            return 1 + maxof2(height(mynode->pright), height(mynode->pleft));
-        }
-
-}
 
 
 int TreeAVL::maxof2(int a, int b)      //returns the max of two numbers
@@ -469,51 +415,66 @@ int TreeAVL::maxof2(int a, int b)      //returns the max of two numbers
 
 
 //-----------------------------Section: ROTATIONS --------------------------------
-
-node* TreeAVL::rr_rotation(node *parent)            ///RIGHT RIGHT rotation
+node *rightRotate(node *y)
 {
-    node *temp;
-    temp = parent->pright;
+	node *x = y->pleft;
+	node *T2 = x->pright;
 
-    parent->pright = temp->pleft;
+	// Perform rotation
+	x->pright = y;
+	y->pleft = T2;
 
-    temp->pleft = parent;
+	// Update heights
+	y->height = max(height(y->pleft),
+					height(y->pright)) + 1;
+	x->height = max(height(x->pleft),
+					height(x->pright)) + 1;
 
-    return temp;
+	// Return new root
+	return x;
+}
+node *leftRotate(node *x)
+{
+	node *y = x->pright;
+	node *T2 = y->pleft;
+
+	// Perform rotation
+	y->pleft = x;
+	x->pright = T2;
+
+	// Update heights
+	x->height = max(height(x->pleft),
+					height(x->pright)) + 1;
+	y->height = max(height(y->pleft),
+					height(y->pright)) + 1;
+
+	// Return new root
+	return y;
+}
+node* TreeAVL::rr_rotation(node *p_node)            ///RIGHT RIGHT rotation
+{
+    return leftRotate(p_node);
 }
 
 
-node* TreeAVL::rl_rotation(node *parent)            ///RIGHT-LEFT rotation
+node* TreeAVL::rl_rotation(node *p_node)            ///RIGHT-LEFT rotation
 {
-    node *temp;
-    temp = parent->pright;
-
-    parent->pright = ll_rotation (temp);
-
-    return rr_rotation (parent);
+    p_node->pright = rightRotate(p_node->pright);
+    return leftRotate(p_node);
 }
 
 
 
-node* TreeAVL::ll_rotation(node *parent)            ///LEFT-LEFT rotation
+node* TreeAVL::ll_rotation(node *p_node)            ///LEFT-LEFT rotation
 {
-    node *temp;
-    temp = parent->pleft;
-
-    parent->pleft = temp->pright;
-
-    temp->pright = parent;
-
-    return temp;
+    return rightRotate(p_node);
 }
 
 
-node* TreeAVL::lr_rotation(node *parent)            ///LEFT-RIGHT rotation
+node* TreeAVL::lr_rotation(node *p_node)            ///LEFT-RIGHT rotation
 {
-    node *temp;
-    temp = parent->pleft;
-    parent->pleft = rr_rotation (temp);
-    return ll_rotation (parent);
+    p_node->pleft = leftRotate(p_node->pleft);
+    return rightRotate(p_node);
 }
 //----------------------------------end of section-----------------------------------------------
 
@@ -532,7 +493,7 @@ void TreeAVL::debugInfo(node *p)
     cout<<endl<<endl<<" ------------------------------- "<<endl<<endl;
     cout<<" Current Point : "<<p<<endl;
     cout<<" Value         : "<<p->value<<endl;
-    cout<<" Balance Factor: "<<p->balance_factor<<endl;
+    cout<<" Height        : "<<p->height<<endl;
     cout<<" Counter       : "<<p->counter<<endl<<endl;
 
 

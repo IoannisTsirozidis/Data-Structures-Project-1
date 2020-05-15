@@ -12,7 +12,7 @@ struct node
     node* pleft;
     node* pright;
     int counter = 0;
-    int balance_factor = 0;       ///  BALANCE FACTOR =  MAX LEFT HEIGHT  -   MAX RIGHT HEIGHT
+    int height;       ///  HEIGHT
 };
 
 class TreeAVL

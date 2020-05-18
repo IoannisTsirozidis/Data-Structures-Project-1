@@ -16,7 +16,7 @@
 1586616232 c:\users\azza8\documents\github\data-structures-project\project\tree.h
 	<string>
 
-1589457568 source:c:\users\azza8\documents\github\data-structures-project\project\main.cpp
+1589790601 source:c:\users\azza8\documents\github\data-structures-project\project\main.cpp
 	<iostream>
 	<fstream>
 	<string>
@@ -31,31 +31,31 @@
 	<string>
 	<bits/stdc++.h>
 
-1589456670 c:\users\azza8\documents\github\data-structures-project\project\binarysearchtree.h
+1589788744 c:\users\azza8\documents\github\data-structures-project\project\binarysearchtree.h
 	<iostream>
 	<string>
 	<bits/stdc++.h>
 
-1589456895 source:c:\users\azza8\documents\github\data-structures-project\project\binarysearchtree.cpp
+1589788744 source:c:\users\azza8\documents\github\data-structures-project\project\binarysearchtree.cpp
 	"BinarySearchTree.h"
 
 1589375550 source:c:\users\user\documents\github\data-structures-project\project\binarysearchtree.cpp
 	"BinarySearchTree.h"
 
-1589456948 source:c:\users\azza8\documents\github\data-structures-project\project\hashtable.cpp
+1589788744 source:c:\users\azza8\documents\github\data-structures-project\project\hashtable.cpp
 	"HashTable.h"
 
-1589456986 c:\users\azza8\documents\github\data-structures-project\project\hashtable.h
+1589788744 c:\users\azza8\documents\github\data-structures-project\project\hashtable.h
 	<iostream>
 	<string>
 
-1589457801 source:c:\users\azza8\documents\github\data-structures-project\project\treeavl.cpp
+1589790601 source:c:\users\azza8\documents\github\data-structures-project\project\treeavl.cpp
 	"TreeAVL.h"
 	<iostream>
 	<string>
 	"TreeAVL.h"
 
-1589456656 c:\users\azza8\documents\github\data-structures-project\project\treeavl.h
+1589789854 c:\users\azza8\documents\github\data-structures-project\project\treeavl.h
 	<iostream>
 	<string>
 

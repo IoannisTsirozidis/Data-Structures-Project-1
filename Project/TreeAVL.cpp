@@ -22,9 +22,6 @@ TreeAVL::~TreeAVL()     //Default Destructor
 
 
 
-
-
-
 ///------------------Section: Search Function-------------------
 
 //Search Function for Main
@@ -106,14 +103,14 @@ nodeA* TreeAVL::insert(nodeA *p_nodeA,string key_value)
     {
         if (key_value < p_nodeA->pleft->value)
         {
-            p_nodeA = ll_rotation(p_nodeA);           //left-left rotation
+           return ll_rotation(p_nodeA);           //left-left rotation
         }
 
 
 
         if (key_value > p_nodeA->pleft->value)
         {
-            p_nodeA = lr_rotation(p_nodeA);           //left-right rotation
+            return lr_rotation(p_nodeA);           //left-right rotation
         }
 
     }
@@ -124,17 +121,17 @@ nodeA* TreeAVL::insert(nodeA *p_nodeA,string key_value)
 
         if (key_value < p_nodeA->pright->value)
         {
-            p_nodeA = rl_rotation(p_nodeA);       //right-left rotation
+            return rl_rotation(p_nodeA);       //right-left rotation
         }
 
 
         if (key_value > p_nodeA->pright->value)
         {
-            p_nodeA = rr_rotation(p_nodeA);       //right-right rotation
+            return rr_rotation(p_nodeA);       //right-right rotation
 
 
+        }
     }
-
     return p_nodeA;
 }
 
@@ -296,21 +293,21 @@ bool TreeAVL::delete_nodeA(string key_value) //a non- recursive function
     if (bal >1)                 ///Initiates check to the left
     {
         if (key_value < p_nodeA->pleft->value) // Left Left Rotation
-            p_nodeA = ll_rotation(p_nodeA);
+            return ll_rotation(p_nodeA);
 
         if (key_value > p_nodeA->pleft->value) // Left Right Rotation
-            p_nodeA = lr_rotation(p_nodeA);
+            return lr_rotation(p_nodeA);
 
     }
     if (bal < -1)              ///Initiates check to the right
     {
         if (key_value < p_nodeA->pright->value)
-            p_nodeA = rl_rotation(p_nodeA);
+            return rl_rotation(p_nodeA);
 
         if (key_value > p_nodeA->pright->value)
-            p_nodeA = rr_rotation(p_nodeA);
+            return rr_rotation(p_nodeA);
     }
-    
+
     return true;
 
 }
@@ -438,7 +435,7 @@ void TreeAVL::debugInfo(nodeA *p)
     cout<<endl<<endl<<" ------------------------------- "<<endl<<endl;
     cout<<" Current Point : "<<p<<endl;
     cout<<" Value         : "<<p->value<<endl;
-    cout<<" Balance Factor: "<<p->balance_factor<<endl;
+    cout<<" Height        : "<<p->height<<endl;
     cout<<" Counter       : "<<p->counter<<endl<<endl;
 
 

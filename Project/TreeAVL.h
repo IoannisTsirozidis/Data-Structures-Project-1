@@ -12,7 +12,7 @@ struct nodeA
     nodeA* pleft;
     nodeA* pright;
     int counter = 0;
-    int balance_factor = 0;       ///  BALANCE FACTOR =  MAX LEFT HEIGHT  -   MAX RIGHT HEIGHT
+    int height = 0;       ///  BALANCE FACTOR =  MAX LEFT HEIGHT  -   MAX RIGHT HEIGHT
 };
 
 class TreeAVL
@@ -72,7 +72,7 @@ class TreeAVL
     private:    ///In private there are the background functions.
 
         nodeA* root = nullptr;           //Private nodeA* root.
-
+        unsigned int number_of_nodes;
 
 
         int height(nodeA*);

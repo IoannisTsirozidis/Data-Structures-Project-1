@@ -363,35 +363,28 @@ nodeA *TreeAVL::rightRotate(nodeA *y)
 	nodeA *x = y->pleft;
 	nodeA *temp = x->pright;
 
-	// Perform rotation
 	x->pright = y;
 	y->pleft = temp;
 
-	// Update heights
 	y->height = max(height(y->pleft),
 					height(y->pright)) + 1;
 	x->height = max(height(x->pleft),
 					height(x->pright)) + 1;
-
-	// Return new root
-	return x;
+    return x;
 }
 nodeA *TreeAVL::leftRotate(nodeA *x)
 {
 	nodeA *y = x->pright;
 	nodeA *temp = y->pleft;
 
-	// Perform rotation
 	y->pleft = x;
 	x->pright = temp;
 
-	// Update heights
 	x->height = max(height(x->pleft),
 					height(x->pright)) + 1;
 	y->height = max(height(y->pleft),
 					height(y->pright)) + 1;
 
-	// Return new root
 	return y;
 }
 nodeA* TreeAVL::rr_rotation(nodeA *p_nodeA)            ///RIGHT RIGHT rotation

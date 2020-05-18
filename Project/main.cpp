@@ -35,7 +35,6 @@ int main()
         cout<<"MEM ALLOCATION FOR SEARCH ARRAY FAILED!\nExiting...";
         exit(-1);
     }
-    int count_words = 0;
 
     srand (time(NULL));
     int k; //count = 0;

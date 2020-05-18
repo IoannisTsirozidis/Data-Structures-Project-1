@@ -68,23 +68,19 @@ nodeA* TreeAVL::search(nodeA* p_nodeA, string key_value)
 
 nodeA* TreeAVL::insert(nodeA *p_nodeA,string key_value)
 {
-    if (p_nodeA == nullptr)       /// The node doesn't exist
+    if (p_nodeA == nullptr)      ///Create the new nodeA and return the address
     {
-        p_nodeA = new nodeA;      /// Dynamically allocating memory
-
-        //check_p_null_AVL(p_nodeA);/// Checks if the allocation was successfully done
-
-        p_nodeA->pleft = nullptr;  /// Set left and right pointer to null
-        p_nodeA->pright =nullptr; /// Set value of the node to the key_value
+        p_nodeA = new nodeA;
+        p_nodeA->pleft = nullptr;
+        p_nodeA->pright =nullptr;
         p_nodeA->value = key_value;
-        p_nodeA->counter = 1;        /// Initializing the counter to one
-        p_nodeA->balance_factor = 0;
+        p_nodeA->counter = 1;
+        p_nodeA->height = 1;
         return p_nodeA;
     }
-                                                 /// If the node exist
     if (key_value > p_nodeA->value)
     {
-        p_nodeA->pright = insert(p_nodeA->pright, key_value); ///Recursive call of the insert
+        p_nodeA->pright = insert(p_nodeA->pright, key_value);
 
     }
 
@@ -109,10 +105,16 @@ nodeA* TreeAVL::insert(nodeA *p_nodeA,string key_value)
     if (bal >1)         ///Initiates Check from the LEFT Subtree.
     {
         if (key_value < p_nodeA->pleft->value)
-            return ll_rotation(p_nodeA);           //left-left rotation
+        {
+            p_nodeA = ll_rotation(p_nodeA);           //left-left rotation
+        }
+
+
 
         if (key_value > p_nodeA->pleft->value)
-            return lr_rotation(p_nodeA);           //left-right rotation
+        {
+            p_nodeA = lr_rotation(p_nodeA);           //left-right rotation
+        }
 
     }
 
@@ -121,15 +123,17 @@ nodeA* TreeAVL::insert(nodeA *p_nodeA,string key_value)
     {
 
         if (key_value < p_nodeA->pright->value)
-            return rl_rotation(p_nodeA);       //right-left rotation
+        {
+            p_nodeA = rl_rotation(p_nodeA);       //right-left rotation
+        }
+
 
         if (key_value > p_nodeA->pright->value)
-            return rr_rotation(p_nodeA);       //right-right rotation
+        {
+            p_nodeA = rr_rotation(p_nodeA);       //right-right rotation
 
 
     }
-
-    fix_bf_for_all(p_nodeA);         ///Correction of Balance Factor after Rotations.
 
     return p_nodeA;
 }
@@ -215,7 +219,6 @@ bool TreeAVL::delete_nodeA(string key_value) //a non- recursive function
 
         else
         {
-
             parent = search_parent(key_value);
             if (parent->pleft == p_delete_nodeA)
                 parent->pleft = nullptr;
@@ -254,7 +257,6 @@ bool TreeAVL::delete_nodeA(string key_value) //a non- recursive function
 
             while(p_current->pleft!= nullptr) // Will arrive at a minimum nodeA at the right subtree. (Find MIN)
                 p_current= p_current->pleft;  // Copy the Value and Counter in the p_delete_nodeA
-
 
 
 
@@ -308,9 +310,7 @@ bool TreeAVL::delete_nodeA(string key_value) //a non- recursive function
         if (key_value > p_nodeA->pright->value)
             p_nodeA = rr_rotation(p_nodeA);
     }
-
-    fix_bf_for_all(root);
-    number_of_nodes =-1;
+    
     return true;
 
 }
@@ -326,80 +326,19 @@ bool TreeAVL::delete_nodeA(string key_value) //a non- recursive function
 
 
 ///------------------------------Section: Fix Balance Factor----------------------------------------
-
-
-int TreeAVL::get_bf(nodeA* mynodeA)      //returns the balance factor of a nodeA
+int TreeAVL::height(nodeA *N)
 {
-    int lheight, rheight, bf;
-
-    lheight= height(mynodeA->pleft);
-    rheight= height(mynodeA->pright);
-
-    bf= lheight- rheight;               //  (max height left) - (max height right); ...[-1, 0, 1]... if it's BALANCED
-
-    mynodeA->balance_factor= bf;       //Updates the balance factor of (*this) nodeA
-
-    return mynodeA->balance_factor;
+	if (N == NULL)
+		return 0;
+	return N->height;
 }
 
-
-
-void TreeAVL::update_bf(nodeA *p)        //UPDATES BALANCE FACTOR OF NODE
+int TreeAVL::get_bf(nodeA* p_nodeA)      //returns the balance factor of a nodeA
 {
-    int lheight, rheight, bf;
-
-    lheight= height(p->pleft);
-    rheight= height(p->pright);
-
-    bf= lheight- rheight;               //   (max left) -   (max right); ...[-1, 0, 1]... if it is BALANCED
-
-    p->balance_factor= bf;       //Updates the balance factor of (*this) nodeA
+    if (p_nodeA == NULL)
+        return 0;
+    return (height(p_nodeA->pleft) - height(p_nodeA->pright));
 }
-
-
-void TreeAVL::fix_bf_for_all(nodeA * p)  ///fixes the balance factor of all nodeAs
-{
-    if (p==nullptr)
-        return;
-
-    fix_bf_for_all(p->pleft);
-    fix_bf_for_all(p->pright);
-    update_bf(p);
-
-}
-
-
-int TreeAVL::height(nodeA* mynodeA)      //recursive function that returns HEIGHT (the MAX PATH), underneath a nodeA (left or right).
-
-{
-        //END CONDITION
-        if(mynodeA== nullptr)        ///If the nodeA that we have arrived at is NULL or NON-existent, returns '0'.
-            return 0;
-
-        //if the nodeA, is not empty then the function is being called recursively
-        //either from the right or the left path
-        //
-        //
-        //
-        //                  13
-        //             3          56
-        //                1
-        //
-        else
-            return 1 + maxof2(height(mynodeA->pright), height(mynodeA->pleft));
-
-}
-
-
-int TreeAVL::maxof2(int a, int b)      //returns the max of two numbers
-{
-                                     //return (a>=b?a:b);
-    if(a>=b)
-        return a;
-    else
-        return b;
-}
-
 
 
 ///----------------------------end of section---------------------------------------------
@@ -421,61 +360,66 @@ int TreeAVL::maxof2(int a, int b)      //returns the max of two numbers
 
 
 
-///-----------------------------Section: ROTATIONS --------------------------------
-
-nodeA* TreeAVL::rr_rotation(nodeA *parent)            /// RIGHT RIGHT rotation
+//-----------------------------Section: ROTATIONS --------------------------------
+nodeA *TreeAVL::rightRotate(nodeA *y)
 {
-    nodeA *temp;
-    temp = parent->pright;
+	nodeA *x = y->pleft;
+	nodeA *temp = x->pright;
 
-    parent->pright = temp->pleft;
+	// Perform rotation
+	x->pright = y;
+	y->pleft = temp;
 
-    temp->pleft = parent;
+	// Update heights
+	y->height = max(height(y->pleft),
+					height(y->pright)) + 1;
+	x->height = max(height(x->pleft),
+					height(x->pright)) + 1;
 
-    fix_bf_for_all(parent);
+	// Return new root
+	return x;
+}
+nodeA *TreeAVL::leftRotate(nodeA *x)
+{
+	nodeA *y = x->pright;
+	nodeA *temp = y->pleft;
 
+	// Perform rotation
+	y->pleft = x;
+	x->pright = temp;
 
-    return temp;
+	// Update heights
+	x->height = max(height(x->pleft),
+					height(x->pright)) + 1;
+	y->height = max(height(y->pleft),
+					height(y->pright)) + 1;
+
+	// Return new root
+	return y;
+}
+nodeA* TreeAVL::rr_rotation(nodeA *p_nodeA)            ///RIGHT RIGHT rotation
+{
+    return leftRotate(p_nodeA);
+}
+
+nodeA* TreeAVL::rl_rotation(nodeA *p_nodeA)            ///RIGHT-LEFT rotation
+{
+    p_nodeA->pright = rightRotate(p_nodeA->pright);
+    return leftRotate(p_nodeA);
 }
 
 
-nodeA* TreeAVL::rl_rotation(nodeA *parent)            ///RIGHT-LEFT rotation
+
+nodeA* TreeAVL::ll_rotation(nodeA *p_nodeA)            ///LEFT-LEFT rotation
 {
-    nodeA *temp;
-    temp = parent->pright;
-
-    parent->pright = ll_rotation (temp);
-
-
-
-
-    return rr_rotation (parent);
+    return rightRotate(p_nodeA);
 }
 
 
-
-nodeA* TreeAVL::ll_rotation(nodeA *parent)            ///LEFT-LEFT rotation
+nodeA* TreeAVL::lr_rotation(nodeA *p_nodeA)            ///LEFT-RIGHT rotation
 {
-    nodeA *temp;
-    temp = parent->pleft;
-
-    parent->pleft = temp->pright;
-
-    temp->pright = parent;
-
-    fix_bf_for_all(parent);
-
-    return temp;
-}
-
-
-nodeA* TreeAVL::lr_rotation(nodeA *parent)            ///LEFT-RIGHT rotation
-{
-    nodeA *temp;
-    temp = parent->pleft;
-    parent->pleft = rr_rotation (temp);
-
-    return ll_rotation (parent);
+    p_nodeA->pleft = leftRotate(p_nodeA->pleft);
+    return rightRotate(p_nodeA);
 }
 //----------------------------------end of section-----------------------------------------------
 

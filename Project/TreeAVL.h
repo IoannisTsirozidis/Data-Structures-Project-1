@@ -71,8 +71,7 @@ class TreeAVL
 
     private:    ///In private there are the background functions.
 
-        nodeA* root = nullptr;           // Private nodeA* root.
-        unsigned int number_of_nodes;             // Keeps the current number of nodes in the Tree
+        nodeA* root = nullptr;           //Private nodeA* root.
 
 
 
@@ -94,7 +93,9 @@ class TreeAVL
         void display(nodeA *ptr, int level);
         void debugInfo(nodeA *);
 
-
+        /// Rotations
+        nodeA *rightRotate(nodeA *);
+        nodeA *leftRotate(nodeA *);
 
         nodeA* rr_rotation(nodeA *parent);
         nodeA* rl_rotation(nodeA *parent);

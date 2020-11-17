@@ -1,5 +1,5 @@
 # Data-Structures-Visuzalization
-Data Structures CSD.AUTH. A visualization of the three, main Data Structures.
+Data Structures Project 2020 CSD, AUTh.  A visualization of the three, main Data Structures.
 
 -Binary Search Tree Visualization
 -AVL Visualization

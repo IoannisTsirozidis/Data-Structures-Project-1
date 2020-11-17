@@ -1,14 +1,14 @@
 # Data-Structures-Visuzalization
-Data Structures Project 2020 CSD.AUTH
+Data Structures CSD.AUTH. A visualization of the three, main Data Structures.
 
 -Binary Search Tree Visualization
 -AVL Visualization
 -Hash Table
 
 
-This is the ultimate (or it wil be someday) project, right after Local Hack Day Build.
-The best C++ Code you will ever see.
+<!--This is the ultimate (or it wil be someday) project, right after Local Hack Day Build.
+The best C++ Code you will ever see.-->
 
 
-Konstantinos, Ioannis, 2020
-Yeah sure thing!
+Ioannis, Konstantinos 2020
+<!--Yeah sure thing!-->
